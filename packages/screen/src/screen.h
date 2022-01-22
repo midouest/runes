@@ -59,7 +59,7 @@ private:
     double text_xy[2];
 };
 
-EMSCRIPTEN_BINDINGS(Screen)
+EMSCRIPTEN_BINDINGS(screen)
 {
     class_<Screen>("Screen")
         .constructor()
