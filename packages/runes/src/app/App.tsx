@@ -1,12 +1,6 @@
 import React from "react";
-import { Canvas } from "./Canvas";
-import { Toolbar } from "./Toolbar";
+import { SimpleDrawingApp } from "./simple-drawing";
 
 export function App(): JSX.Element {
-  return (
-    <>
-      <Toolbar />
-      <Canvas />
-    </>
-  );
+  return <SimpleDrawingApp />;
 }

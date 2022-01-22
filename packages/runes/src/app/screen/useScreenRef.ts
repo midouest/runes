@@ -1,7 +1,7 @@
 import { MutableRefObject, useEffect, useRef } from "react";
 import { NornsScreen } from "./NornsScreen";
 
-export function useScreen(
+export function useScreenRef(
   loadCallback?: (screen: NornsScreen) => void
 ): MutableRefObject<NornsScreen | undefined> {
   const screenRef = useRef<NornsScreen | undefined>();

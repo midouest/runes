@@ -1,4 +1,5 @@
 import Module, { WasmScreen } from "@runes/screen";
+import { toRadians } from "../util/math";
 
 const BLEND_MODES: Record<string, number> = {
   NONE: 0,
@@ -164,7 +165,7 @@ export class NornsScreen {
     this._screen.save();
     this._screen.move(x, y);
     this._screen.translate(x, y);
-    const radians = degrees * (Math.PI / 180);
+    const radians = toRadians(degrees);
     this._screen.rotate(radians);
     this._screen.text(s);
     this._screen.restore();
