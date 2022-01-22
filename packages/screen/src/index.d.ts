@@ -48,6 +48,11 @@ export interface WasmScreenConstructor {
 
 export interface WasmInstance {
   Screen: WasmScreenConstructor;
+
+  setValue(ptr: number, value: number, type: string): void;
+  getValue(ptr: number, type: string): number;
+  _malloc(size: number): number;
+  _free(pointer: number): void;
 }
 
 declare var Module: () => Promise<WasmInstance>;

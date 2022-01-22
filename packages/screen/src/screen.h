@@ -7,6 +7,7 @@
 #include <cairo-ft.h>
 
 #include <string>
+#include <memory>
 
 #define NUM_FONTS 67
 

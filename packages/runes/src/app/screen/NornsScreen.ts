@@ -1,4 +1,4 @@
-import Module, { WasmScreen } from "@runes/screen";
+import Module, { WasmInstance, WasmScreen } from "@runes/screen";
 import { toRadians } from "../util/math";
 
 const BLEND_MODES: Record<string, number> = {
@@ -38,11 +38,12 @@ const BLEND_MODES: Record<string, number> = {
 export class NornsScreen {
   static async load(): Promise<NornsScreen> {
     const instance = await Module();
-    const wasmScreen = new instance.Screen();
-    return new NornsScreen(wasmScreen);
+    return new NornsScreen(instance);
   }
 
-  constructor(private _screen: WasmScreen) {}
+  private _screen = new this._instance.Screen();
+
+  constructor(private _instance: WasmInstance) {}
 
   update(context: CanvasRenderingContext2D) {
     const data = this._screen.get_data();

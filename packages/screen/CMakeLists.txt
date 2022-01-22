@@ -100,4 +100,4 @@ add_executable(index src/screen.cc)
 add_dependencies(index pixman freetype cairo)
 target_link_libraries(index pixman freetype cairo)
 set_target_properties(index PROPERTIES LINK_FLAGS
-    "-O3 -s TOTAL_MEMORY=32MB --bind -s MODULARIZE -s EXPORT_ES6=1 -s ENVIRONMENT='web' --no-entry --embed-file ${CMAKE_CURRENT_SOURCE_DIR}/resources@/resources")
+    "-s EXPORTED_RUNTIME_METHODS=setValue,getValue -O3 -s TOTAL_MEMORY=32MB --bind -s MODULARIZE -s EXPORT_ES6=1 -s ENVIRONMENT='web' --no-entry --embed-file ${CMAKE_CURRENT_SOURCE_DIR}/resources@/resources")
