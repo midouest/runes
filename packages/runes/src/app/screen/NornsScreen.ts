@@ -1,4 +1,4 @@
-import Module, { WasmInstance, WasmScreen } from "@runes/screen";
+import Module, { WasmInstance } from "@runes/screen";
 import { toRadians } from "../util/math";
 
 const BLEND_MODES: Record<string, number> = {
@@ -64,11 +64,11 @@ export class NornsScreen {
     this._screen.restore();
   }
 
-  font_face(i: number) {
+  fontFace(i: number) {
     this._screen.font_face(i);
   }
 
-  font_size(z: number) {
+  fontSize(z: number) {
     this._screen.font_size(z);
   }
 
