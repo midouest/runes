@@ -1,3 +1,4 @@
 import { contextBridge } from "electron";
+import { RunesApi } from "./bridge/RunesApi";
 
-contextBridge.exposeInMainWorld("runesApi", {});
+contextBridge.exposeInMainWorld("runesApi", RunesApi);
