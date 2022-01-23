@@ -1,5 +1,5 @@
 import Module, { WasmInstance } from "@runes/screen";
-import { toRadians } from "../util/math";
+import { toRadians } from "../util/geometry";
 
 const BLEND_MODES: Record<string, number> = {
   NONE: 0,

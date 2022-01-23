@@ -1,3 +1,8 @@
+export interface Vec2d {
+  x: number;
+  y: number;
+}
+
 export function toRadians(degrees: number) {
   return (degrees * Math.PI) / 180;
 }

@@ -1,7 +1,7 @@
 import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useScreenRef } from "../screen";
-import { lineAngle, lineLength } from "../util/math";
+import { lineAngle, lineLength, Vec2d } from "../util/geometry";
 import { Primitive } from "./primitives";
 import { addPrimitive, startDrawing } from "./simpleDrawingSlice";
 import { Tool } from "./tool";
@@ -10,11 +10,6 @@ export interface CanvasProps {
   isDrawing: boolean;
   tool: Tool;
   primitives: Primitive[];
-}
-
-interface Vec2d {
-  x: number;
-  y: number;
 }
 
 function toLocal({
