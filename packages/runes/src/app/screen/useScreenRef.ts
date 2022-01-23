@@ -3,8 +3,8 @@ import { NornsScreen } from "./NornsScreen";
 
 export function useScreenRef(
   loadCallback?: (screen: NornsScreen) => void
-): MutableRefObject<NornsScreen | undefined> {
-  const screenRef = useRef<NornsScreen | undefined>();
+): MutableRefObject<NornsScreen | null> {
+  const screenRef = useRef<NornsScreen | null>(null);
 
   useEffect(() => {
     NornsScreen.load()

@@ -26,8 +26,8 @@ export function Canvas({
   tool,
   primitives,
 }: CanvasProps): JSX.Element {
-  const prevIsDrawing = useRef<boolean | undefined>();
-  const canvasRef = useRef<HTMLCanvasElement | undefined>();
+  const prevIsDrawing = useRef<boolean | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const screenRef = useScreenRef();
   const dispatch = useDispatch();
   const [points, setPoints] = useState<Vec2d[]>([]);
@@ -41,7 +41,9 @@ export function Canvas({
 
   useEffect(() => {
     const screen = screenRef.current;
-    if (!screen) {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!screen || !canvas || !context) {
       return;
     }
 
@@ -92,7 +94,7 @@ export function Canvas({
       }
     }
 
-    screen.update(canvasRef.current.getContext("2d"));
+    screen.update(context);
   }, [screenRef, primitives]);
 
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {

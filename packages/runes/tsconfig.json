@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    // "strict": true,
+    "strict": true,
     "allowJs": true,
     "module": "commonjs",
     "skipLibCheck": true,
