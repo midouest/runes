@@ -22,7 +22,7 @@ ipcMain.on("eval", (event, statement) => {
     return;
   }
 
-  matronClient.send(statement);
+  matronClient.send(`${statement}\n`);
 });
 
 const createWindow = (): void => {

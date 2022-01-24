@@ -7,7 +7,7 @@ export class RecordScreenProxy implements BaseScreen {
 
   toRenderFunction(): string {
     const body = this._commands.join(";");
-    const render = `function redraw() ${body} end\n`;
+    const render = `function redraw() ${body} end`;
     this._commands = [];
     return render;
   }
