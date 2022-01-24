@@ -1,3 +1,3 @@
 export interface RunesApiBridge {
-  placeholder(): void;
+  eval(statement: string): void;
 }

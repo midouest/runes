@@ -1,5 +1,6 @@
 import Module, { WasmInstance } from "@runes/screen";
 import { toRadians } from "../util/geometry";
+import { BaseScreen } from "./interface";
 
 const BLEND_MODES: Record<string, number> = {
   NONE: 0,
@@ -35,7 +36,7 @@ const BLEND_MODES: Record<string, number> = {
   HSL_LUMINOSITY: 28,
 };
 
-export class NornsScreen {
+export class NornsScreen implements BaseScreen {
   static async load(): Promise<NornsScreen> {
     const instance = await Module();
     return new NornsScreen(instance);

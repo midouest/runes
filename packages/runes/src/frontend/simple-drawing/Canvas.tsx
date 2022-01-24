@@ -1,6 +1,7 @@
 import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useScreenRef } from "../screen";
+import { RecordScreenProxy } from "../screen/RecordScreenProxy";
 import { lineAngle, lineLength, Vec2d } from "../util/geometry";
 import { Primitive } from "./primitives";
 import { addPrimitive, startDrawing } from "./simpleDrawingSlice";
@@ -47,54 +48,59 @@ export function Canvas({
       return;
     }
 
-    screen.clear();
-    screen.aa(0);
-    screen.level(15);
-    screen.lineWidth(1);
+    const proxy = new RecordScreenProxy(screen);
+
+    proxy.clear();
+    proxy.aa(0);
+    proxy.level(15);
+    proxy.lineWidth(1);
 
     for (const primitive of primitives) {
       switch (primitive.type) {
         case "pixel": {
           const { x, y } = primitive;
-          screen.pixel(x, y);
-          screen.fill();
+          proxy.pixel(x, y);
+          proxy.fill();
           break;
         }
         case "line": {
           const { x1, y1, x2, y2 } = primitive;
-          screen.move(x1, y1);
-          screen.line(x2, y2);
-          screen.stroke();
+          proxy.move(x1, y1);
+          proxy.line(x2, y2);
+          proxy.stroke();
           break;
         }
         case "rectangle": {
           const { x, y, w, h } = primitive;
-          screen.rect(x, y, w, h);
-          screen.stroke();
+          proxy.rect(x, y, w, h);
+          proxy.stroke();
           break;
         }
         case "arc": {
           const { x, y, r, a1, a2 } = primitive;
-          screen.arc(x, y, r, a1, a2);
-          screen.stroke();
+          proxy.arc(x, y, r, a1, a2);
+          proxy.stroke();
           break;
         }
         case "circle": {
           const { x, y, r } = primitive;
-          screen.circle(x, y, r);
-          screen.stroke();
+          proxy.circle(x, y, r);
+          proxy.stroke();
           break;
         }
         case "curve": {
           const { x1, y1, x2, y2, x3, y3 } = primitive;
-          screen.curve(x1, y1, x2, y2, x3, y3);
-          screen.stroke();
+          proxy.curve(x1, y1, x2, y2, x3, y3);
+          proxy.stroke();
           break;
         }
       }
     }
 
-    screen.update(context);
+    proxy.update(context);
+
+    const render = proxy.toRenderFunction();
+    runesApi.eval(render);
   }, [screenRef, primitives]);
 
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {

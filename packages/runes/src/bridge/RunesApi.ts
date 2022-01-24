@@ -1,7 +1,8 @@
+import { ipcRenderer } from "electron";
 import { RunesApiBridge } from "./interface";
 
 export const RunesApi: RunesApiBridge = {
-  placeholder(): void {
-    // placeholder
+  eval(statement: string): void {
+    ipcRenderer.send("eval", statement);
   },
 };
