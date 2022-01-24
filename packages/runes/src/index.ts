@@ -17,6 +17,10 @@ if (require("electron-squirrel-startup")) {
 
 let matronClient: MatronClient | null = null;
 
+ipcMain.on("connect", (event, host, port) => {
+  MatronClient.connect(host, port).then((client) => (matronClient = client));
+});
+
 ipcMain.on("eval", (event, statement) => {
   if (matronClient === null) {
     return;
@@ -77,5 +81,4 @@ const reactDevToolsPath = path.join(
 
 app.whenReady().then(async () => {
   await session.defaultSession.loadExtension(reactDevToolsPath);
-  matronClient = await MatronClient.connect("norns.local", 5555);
 });
