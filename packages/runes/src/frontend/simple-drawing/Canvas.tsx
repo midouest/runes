@@ -116,6 +116,7 @@ export function Canvas({
     const render = proxy.toRenderFunction();
     console.log(render);
     runesApi.eval(render);
+    runesApi.eval("screen_dirty=true");
   }, [screenRef, primitives]);
 
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
