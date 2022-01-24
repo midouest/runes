@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "devDependencies": {},
   "scripts": {
-    "build": "emcmake cmake -Bbuild -H. && cmake --build build --target index",
+    "build": "emcmake cmake -Bbuild -H. && cmake --build build --target index && cp src/index.d.ts build",
     "clean": "rm -rf build"
   },
   "author": "",
