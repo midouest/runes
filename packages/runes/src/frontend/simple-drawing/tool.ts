@@ -1,4 +1,11 @@
-export type Tool = "pixel" | "line" | "rectangle" | "arc" | "circle" | "curve";
+export type Tool =
+  | "pixel"
+  | "line"
+  | "rectangle"
+  | "arc"
+  | "circle"
+  | "curve"
+  | "text";
 
 export const TOOLS = [
   "pixel",
@@ -7,4 +14,5 @@ export const TOOLS = [
   "arc",
   "circle",
   "curve",
+  "text",
 ] as const;

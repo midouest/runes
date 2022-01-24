@@ -1,4 +1,10 @@
-import React, { MouseEvent, useEffect, useRef, useState } from "react";
+import React, {
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch } from "react-redux";
 import { useScreenRef } from "../screen";
 import { RecordScreenProxy } from "../screen/RecordScreenProxy";
@@ -32,6 +38,7 @@ export function Canvas({
   const screenRef = useScreenRef();
   const dispatch = useDispatch();
   const [points, setPoints] = useState<Vec2d[]>([]);
+  const [buffer, setBuffer] = useState<string>("");
 
   useEffect(() => {
     if (prevIsDrawing.current === true && !isDrawing && points.length > 0) {
@@ -94,12 +101,20 @@ export function Canvas({
           proxy.stroke();
           break;
         }
+        case "text": {
+          const { x, y, text } = primitive;
+          proxy.move(x, y);
+          proxy.text(text);
+          proxy.stroke();
+          break;
+        }
       }
     }
 
     proxy.update(context);
 
     const render = proxy.toRenderFunction();
+    console.log(render);
     runesApi.eval(render);
   }, [screenRef, primitives]);
 
@@ -182,8 +197,33 @@ export function Canvas({
         }
         break;
       }
+      case "text": {
+        if (points.length === 0) {
+          dispatch(startDrawing());
+          setPoints([{ x, y }]);
+        }
+        break;
+      }
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (tool !== "text" || points.length === 0) {
+        return;
+      }
+
+      if (event.key === "Enter" && buffer.length > 0) {
+        const { x, y } = points[0];
+        dispatch(addPrimitive({ type: "text", x, y, text: buffer }));
+        setBuffer("");
+      } else if (event.key.length === 1) {
+        setBuffer(buffer + event.key);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [tool, points, buffer, setBuffer]);
 
   return (
     <canvas

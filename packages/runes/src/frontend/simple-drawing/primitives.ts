@@ -46,4 +46,11 @@ export interface Curve {
   y3: number;
 }
 
-export type Primitive = Pixel | Line | Rectangle | Arc | Circle | Curve;
+export interface Text {
+  type: "text";
+  x: number;
+  y: number;
+  text: string;
+}
+
+export type Primitive = Pixel | Line | Rectangle | Arc | Circle | Curve | Text;
