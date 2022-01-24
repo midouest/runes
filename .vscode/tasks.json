@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start-runes",
+      "problemMatcher": [],
+      "label": "npm: start-runes",
+      "detail": "yarn workspace @runes/runes start",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
