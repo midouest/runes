@@ -61,10 +61,10 @@ export function ScratchPad(): JSX.Element {
       parse(value);
       matron?.exec(redraw(value));
       runesApi.eval(value);
-      setCode(value);
     } catch (err) {
       // noop
     }
+    setCode(value);
   };
 
   useEffect(() => runCode(), []);
