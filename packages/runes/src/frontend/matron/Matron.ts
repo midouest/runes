@@ -14,14 +14,23 @@ export class Matron {
   }
 
   constructor(private _wasm: MatronEmscriptenModule, private _api: MatronApi) {
+    this._init();
+  }
+
+  private _init(): void {
     this._api.config.init();
     this._api.weaver.init();
     this._api.weaver.startup();
   }
 
-  cleanup(): void {
+  deinit(): void {
     this._api.weaver.deinit();
     this._api.config.deinit();
+  }
+
+  restart(): void {
+    this.deinit();
+    this._init();
   }
 
   reset(): void {

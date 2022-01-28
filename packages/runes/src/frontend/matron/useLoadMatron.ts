@@ -19,7 +19,7 @@ export function useLoadMatron(callback?: LoadMatronCallback): Matron | null {
 
     return () => {
       if (state !== null) {
-        state.cleanup();
+        state.deinit();
       }
     };
   }, []);

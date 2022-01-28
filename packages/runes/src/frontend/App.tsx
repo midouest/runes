@@ -13,7 +13,7 @@ export function App(): JSX.Element {
       ) : (
         <Provider matron={matron}>
           <button onClick={handleConnect}>Connect</button>
-          <button onClick={() => matron.reset()}>Reset</button>
+          <button onClick={() => matron.restart()}>Restart</button>
           <ScratchPad />
         </Provider>
       )}

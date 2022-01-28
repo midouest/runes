@@ -141,6 +141,7 @@ set(HOME /home/${USER})
 
 set(EMSCRIPTEN_LINK_FLAGS
     "-s INITIAL_MEMORY=32MB \
+     -s ALLOW_MEMORY_GROWTH=1 \
      -s EXPORTED_RUNTIME_METHODS=cwrap \
      -s MODULARIZE \
      -s EXPORT_ES6=1 \
