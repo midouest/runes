@@ -158,24 +158,27 @@ set_target_properties(lua PROPERTIES IMPORTED_LOCATION ${LUA_STATIC_LIB})
 
 # MATRON #######################################################################
 
+set(NORNS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/norns)
+set(MATRON_SRC_DIR ${NORNS_DIR}/matron/src)
+
 include_directories(
     ${INCLUDE_DIR}/cairo
     ${INCLUDE_DIR}/freetype2
     ${INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/hardware
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/hardware/screen)
+    ${MATRON_SRC_DIR}
+    ${MATRON_SRC_DIR}/hardware
+    ${MATRON_SRC_DIR}/hardware/screen)
 
 link_directories(${STATIC_LIB_DIR})
 
 add_executable(index
-    src/config.c
-    src/lua_eval.c
-    src/weaver.c
-    src/hardware/io.c
-    src/hardware/screen.c
-    src/hardware/screen/static.c)
+    ${MATRON_SRC_DIR}/config.c
+    ${MATRON_SRC_DIR}/lua_eval.c
+    ${MATRON_SRC_DIR}/weaver.c
+    ${MATRON_SRC_DIR}/hardware/io.c
+    ${MATRON_SRC_DIR}/hardware/screen.c
+    ${MATRON_SRC_DIR}/hardware/screen/static.c)
 
 add_dependencies(index z png pixman freetype cairo lua)
 target_link_libraries(index z png pixman freetype cairo lua)
@@ -196,7 +199,7 @@ set(EMSCRIPTEN_LINK_FLAGS
      -s ENVIRONMENT='web' \
      -s SINGLE_FILE=1 \
      --no-entry \
-     --embed-file ${CMAKE_CURRENT_SOURCE_DIR}/resources@/${HOME}/norns/resources \
-     --embed-file ${CMAKE_CURRENT_SOURCE_DIR}/lua@/${HOME}/norns/lua \
-     --embed-file ${CMAKE_CURRENT_SOURCE_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
+     --embed-file ${NORNS_DIR}/resources@/${HOME}/norns/resources \
+     --embed-file ${NORNS_DIR}/lua@/${HOME}/norns/lua \
+     --embed-file ${NORNS_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
 set_target_properties(index PROPERTIES LINK_FLAGS ${EMSCRIPTEN_LINK_FLAGS})

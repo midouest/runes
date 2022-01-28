@@ -14,6 +14,8 @@
 ### Setup
 
 ```bash
+$ git submodule init
+$ git submodule update
 $ yarn install
 $ yarn build-screen
 $ yarn start-runes
