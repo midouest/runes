@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMatron } from "../matron";
 import { useAnimation } from "../util/useAnimation";
 import styled from "styled-components";
+import { MonacoEditor } from "../monaco";
 
 const initialCode = `
 function redraw()
@@ -44,8 +45,7 @@ export function ScratchPad(): JSX.Element {
     context.putImageData(data, 0, 0);
   });
 
-  const updateCode = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = event.target;
+  const updateCode = (value: string) => {
     setCode(value);
   };
 
@@ -59,7 +59,7 @@ export function ScratchPad(): JSX.Element {
   return (
     <FlexWrapper>
       <canvas ref={canvasRef} width={128} height={64} />
-      <textarea onChange={updateCode} value={code} />
+      <MonacoEditor initialValue={code} onChange={updateCode} />
       <button onClick={runCode}>Run</button>
     </FlexWrapper>
   );
