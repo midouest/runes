@@ -1,0 +1,17 @@
+58c58,59
+< 		       const cairo_point_t *point)
+---
+> 		       const cairo_point_t *point,
+>                const cairo_slope_t *tangent)
+78c79
+<     return _cairo_filler_line_to (closure, &filler->last_move_to);
+---
+>     return _cairo_filler_line_to (closure, &filler->last_move_to, NULL);
+112c113
+< 	    return _cairo_filler_line_to (filler, p3);
+---
+> 	    return _cairo_filler_line_to (filler, p3, NULL);
+119c120
+< 	return _cairo_filler_line_to (closure, p3);
+---
+> 	return _cairo_filler_line_to (closure, p3, NULL);

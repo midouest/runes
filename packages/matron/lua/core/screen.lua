@@ -307,7 +307,7 @@ end
 -- @param filename
 -- @tparam number x x position
 -- @tparam number y y position
--- Screen.display_png = function(filename,x,y) _norns.screen_display_png(filename,x,y) end
+Screen.display_png = function(filename,x,y) _norns.screen_display_png(filename,x,y) end
 
 --- get a rectangle of screen content. returned buffer contains one byte (valued 0 - 15) per pixel, i.e. w * h bytes
 -- @tparam number x x position

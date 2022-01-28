@@ -115,8 +115,8 @@ static int _screen_text(lua_State *l);
 static int _screen_clear(lua_State *l);
 static int _screen_close(lua_State *l);
 static int _screen_text_extents(lua_State *l);
-// static int _screen_export_png(lua_State *l);
-// static int _screen_display_png(lua_State *l);
+static int _screen_export_png(lua_State *l);
+static int _screen_display_png(lua_State *l);
 static int _screen_peek(lua_State *l);
 static int _screen_poke(lua_State *l);
 static int _screen_rotate(lua_State *l);
@@ -397,8 +397,8 @@ void EMSCRIPTEN_KEEPALIVE w_init(void) {
     lua_register_norns("screen_clear", &_screen_clear);
     lua_register_norns("screen_close", &_screen_close);
     lua_register_norns("screen_text_extents", &_screen_text_extents);
-    // lua_register_norns("screen_export_png", &_screen_export_png);
-    // lua_register_norns("screen_display_png", &_screen_display_png);
+    lua_register_norns("screen_export_png", &_screen_export_png);
+    lua_register_norns("screen_display_png", &_screen_display_png);
     lua_register_norns("screen_peek", &_screen_peek);
     lua_register_norns("screen_poke", &_screen_poke);
     lua_register_norns("screen_rotate", &_screen_rotate);
@@ -877,28 +877,28 @@ int _screen_text_extents(lua_State *l) {
  * @function s_export_png
  * @tparam string filename
  */
-// int _screen_export_png(lua_State *l) {
-//     lua_check_num_args(1);
-//     const char *s = luaL_checkstring(l, 1);
-//     screen_export_png(s);
-//     lua_settop(l, 0);
-//     return 0;
-// }
+int _screen_export_png(lua_State *l) {
+    lua_check_num_args(1);
+    const char *s = luaL_checkstring(l, 1);
+    screen_export_png(s);
+    lua_settop(l, 0);
+    return 0;
+}
 
 /***
  * screen: display_png
  * @function s_display_png
  * @tparam string filename
  */
-// int _screen_display_png(lua_State *l) {
-//     lua_check_num_args(3);
-//     const char *s = luaL_checkstring(l, 1);
-//     double x = luaL_checknumber(l, 2);
-//     double y = luaL_checknumber(l, 3);
-//     screen_display_png(s, x, y);
-//     lua_settop(l, 0);
-//     return 0;
-// }
+int _screen_display_png(lua_State *l) {
+    lua_check_num_args(3);
+    const char *s = luaL_checkstring(l, 1);
+    double x = luaL_checknumber(l, 2);
+    double y = luaL_checknumber(l, 3);
+    screen_display_png(s, x, y);
+    lua_settop(l, 0);
+    return 0;
+}
 
 /***
  * screen: peek

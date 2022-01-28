@@ -76,9 +76,15 @@ app.on("activate", () => {
 
 const reactDevToolsPath = path.join(
   os.homedir(),
-  "/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.22.0_0"
+  "/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.23.0_0"
+);
+
+const cppDevToolsPath = path.join(
+  os.homedir(),
+  "/Library/Application Support/Google/Chrome/Default/Extensions/pdcpmagijalfljmkmjngeonclgbbannb/0.1.6.1615_0"
 );
 
 app.whenReady().then(async () => {
   await session.defaultSession.loadExtension(reactDevToolsPath);
+  await session.defaultSession.loadExtension(cppDevToolsPath);
 });
