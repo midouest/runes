@@ -68,6 +68,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@electron-forge/plugin-webpack": "6.0.0-beta.63",
+    "@types/luaparse": "^0.2.8",
     "@types/offscreencanvas": "^2019.6.4",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
@@ -91,6 +92,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.1",
     "electron-squirrel-startup": "^1.0.0",
+    "luaparse": "^0.3.1",
     "monaco-editor": "^0.31.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
