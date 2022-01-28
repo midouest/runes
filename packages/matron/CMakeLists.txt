@@ -26,7 +26,7 @@ add_library(z STATIC IMPORTED GLOBAL)
 add_dependencies(z libz)
 set_target_properties(z PROPERTIES IMPORTED_LOCATION ${Z_STATIC_LIB})
 
-# PNG
+# PNG ##########################################################################
 
 set(PNG_STATIC_LIB ${STATIC_LIB_DIR}/libpng.a)
 set(PNG_CMAKE_ARGS
