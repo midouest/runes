@@ -152,7 +152,7 @@ ExternalProject_Add(
 )
 
 add_library(lua STATIC IMPORTED GLOBAL)
-add_dependencies(lua lualua)
+add_dependencies(lua liblua)
 set_target_properties(lua PROPERTIES IMPORTED_LOCATION ${LUA_STATIC_LIB})
 
 
@@ -177,7 +177,7 @@ add_executable(index
     src/hardware/screen.c
     src/hardware/screen/static.c)
 
-add_dependencies(index libz libpng libpixman libfreetype libcairo liblua)
+add_dependencies(index z png pixman freetype cairo lua)
 target_link_libraries(index z png pixman freetype cairo lua)
 
 set(USER web_user)
