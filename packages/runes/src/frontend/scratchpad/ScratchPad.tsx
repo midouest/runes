@@ -45,13 +45,15 @@ export function ScratchPad(): JSX.Element {
     context.putImageData(data, 0, 0);
   });
 
-  const updateCode = (value: string) => {
-    setCode(value);
-  };
-
   const runCode = () => {
     matron?.exec(redraw(code));
     runesApi.eval(code);
+  };
+
+  const updateCode = (value: string) => {
+    matron?.exec(redraw(value));
+    runesApi.eval(value);
+    setCode(value);
   };
 
   useEffect(() => runCode(), []);
