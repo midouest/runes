@@ -11,6 +11,13 @@ function redraw()
 end
 `;
 
+function redraw(code: string): string {
+  return `${code}
+screen.save()
+redraw()
+screen.restore()`;
+}
+
 const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,8 +45,7 @@ export function ScratchPad(): JSX.Element {
   };
 
   const runCode = () => {
-    const toExec = `${code}\nredraw()`;
-    matron?.exec(toExec);
+    matron?.exec(redraw(code));
   };
 
   return (
