@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start-runes": "yarn workspace @runes/runes start",
-    "build-screen": "yarn workspace @runes/screen build"
+    "build-matron": "yarn workspace @runes/matron build"
   },
   "author": "",
   "license": "GPL-3.0",

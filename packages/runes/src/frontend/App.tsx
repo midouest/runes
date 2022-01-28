@@ -1,13 +1,22 @@
 import React from "react";
-import { SimpleDrawingApp } from "./simple-drawing";
+import { useLoadMatron, Provider } from "./matron";
+import { ScratchPad } from "./scratchpad/ScratchPad";
 
 export function App(): JSX.Element {
+  const matron = useLoadMatron();
   const handleConnect = () => runesApi.connect("norns.local", 5555);
 
   return (
     <div>
-      <SimpleDrawingApp />
-      <button onClick={handleConnect}>Connect</button>
+      {matron === null ? (
+        "Loading Matron..."
+      ) : (
+        <Provider matron={matron}>
+          <button onClick={handleConnect}>Connect</button>
+          <button onClick={() => matron.reset()}>Reset</button>
+          <ScratchPad />
+        </Provider>
+      )}
     </div>
   );
 }

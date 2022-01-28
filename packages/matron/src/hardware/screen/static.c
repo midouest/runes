@@ -5,9 +5,15 @@
 #include <stdlib.h>
 
 uint8_t data[128 * 64 * 4];
+EM_BOOL dirty = EM_FALSE;
 
 uint8_t* EMSCRIPTEN_KEEPALIVE screen_get_data() {
+    dirty = EM_FALSE;
     return data;
+}
+
+EM_BOOL EMSCRIPTEN_KEEPALIVE screen_dirty() {
+    return dirty;
 }
 
 typedef struct _screen_static_priv {
@@ -62,6 +68,7 @@ static void screen_static_destroy(matron_io_t *io) {
 static void screen_static_paint(matron_fb_t *fb) {
     screen_static_priv_t *priv = fb->io.data;
     cairo_paint(fb->cairo);
+    dirty = EM_TRUE;
 }
 
 static void screen_static_bind(matron_fb_t *fb, cairo_surface_t *surface) {

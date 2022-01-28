@@ -1,10 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { simpleDrawingReducer } from "./simple-drawing";
 
 export const store = configureStore({
-  reducer: {
-    simpleDrawing: simpleDrawingReducer,
-  },
+  reducer: {},
 });
 
 export type RootState = ReturnType<typeof store.getState>;
