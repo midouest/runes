@@ -3,6 +3,7 @@ import { useMatron } from "../matron";
 import { useAnimation } from "../util/useAnimation";
 import styled from "styled-components";
 import { MonacoEditor } from "../monaco";
+import { parse } from "luaparse";
 
 const initialCode = `
 function redraw()
@@ -46,14 +47,24 @@ export function ScratchPad(): JSX.Element {
   });
 
   const runCode = () => {
-    matron?.exec(redraw(code));
-    runesApi.eval(code);
+    try {
+      parse(code);
+      matron?.exec(redraw(code));
+      runesApi.eval(code);
+    } catch (err) {
+      // noop
+    }
   };
 
   const updateCode = (value: string) => {
-    matron?.exec(redraw(value));
-    runesApi.eval(value);
-    setCode(value);
+    try {
+      parse(value);
+      matron?.exec(redraw(value));
+      runesApi.eval(value);
+      setCode(value);
+    } catch (err) {
+      // noop
+    }
   };
 
   useEffect(() => runCode(), []);
