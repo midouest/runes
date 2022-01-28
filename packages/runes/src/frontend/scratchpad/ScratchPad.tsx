@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useMatron } from "../matron";
 import { useAnimation } from "../util/useAnimation";
 import styled from "styled-components";
@@ -6,6 +6,11 @@ import styled from "styled-components";
 const initialCode = `
 function redraw()
   screen.clear()
+
+  screen.move(64, 34)
+  screen.level(15)
+  screen.text_center("Welcome to Runes!")
+  screen.stroke()
 
   screen.update()
 end
@@ -47,6 +52,8 @@ export function ScratchPad(): JSX.Element {
   const runCode = () => {
     matron?.exec(redraw(code));
   };
+
+  useEffect(() => runCode(), []);
 
   return (
     <FlexWrapper>
