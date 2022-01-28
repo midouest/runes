@@ -10,7 +10,7 @@ const rules = [
   },
   {
     test: /\.ttf$/,
-    use: [{ loader: "file-loader" }],
+    type: "asset/resource",
   },
 ];
 
