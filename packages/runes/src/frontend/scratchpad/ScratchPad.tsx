@@ -51,6 +51,7 @@ export function ScratchPad(): JSX.Element {
 
   const runCode = () => {
     matron?.exec(redraw(code));
+    runesApi.eval(code);
   };
 
   useEffect(() => runCode(), []);
