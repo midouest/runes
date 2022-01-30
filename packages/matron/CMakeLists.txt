@@ -196,7 +196,7 @@ set(EMSCRIPTEN_LINK_FLAGS
      -s EXPORTED_RUNTIME_METHODS=cwrap \
      -s MODULARIZE \
      -s EXPORT_ES6=1 \
-     -s ENVIRONMENT='web' \
+     -s ENVIRONMENT='web,worker' \
      -s SINGLE_FILE=1 \
      --no-entry \
      --embed-file ${NORNS_DIR}/resources@/${HOME}/norns/resources \

@@ -1,9 +1,9 @@
 import React from "react";
-import { useLoadMatron, Provider } from "./matron";
+import { Provider, useStartMatronWorker } from "./matron";
 import { ScratchPad } from "./scratchpad/ScratchPad";
 
 export function App(): JSX.Element {
-  const matron = useLoadMatron();
+  const matron = useStartMatronWorker();
 
   const handleConnect = () => runesApi.connect("norns.local", 5555);
   const restart = () => matron?.restart();
@@ -12,7 +12,7 @@ export function App(): JSX.Element {
   return (
     <div>
       {matron === null ? (
-        "Loading Matron..."
+        "Starting Matron..."
       ) : (
         <Provider matron={matron}>
           <button onClick={handleConnect}>Connect Norns</button>

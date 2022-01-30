@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useMatron } from "../matron";
-import { useAnimation } from "../util/useAnimation";
 import styled from "styled-components";
 import { MonacoEditor } from "../monaco";
 import { parse } from "luaparse";
@@ -35,21 +34,20 @@ export function ScratchPad(): JSX.Element {
   const [code, setCode] = useState(initialCode);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  useAnimation((dt: number) => {
-    const context = canvasRef.current?.getContext("2d");
-    if (!(context && matron?.isDirty())) {
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas === null || matron === null) {
       return;
     }
 
-    const screen = matron.getScreen();
-    const data = new ImageData(screen, 128, 64);
-    context.putImageData(data, 0, 0);
-  });
+    const offscreen = canvas.transferControlToOffscreen();
+    matron.transferCanvas(offscreen);
+  }, []);
 
   const runCode = () => {
     try {
       parse(code);
-      matron?.exec(redraw(code));
+      matron?.execute(code);
       runesApi.eval(code);
     } catch (err) {
       // noop
@@ -59,7 +57,7 @@ export function ScratchPad(): JSX.Element {
   const updateCode = (value: string) => {
     try {
       parse(value);
-      matron?.exec(redraw(value));
+      matron?.execute(value);
       runesApi.eval(value);
     } catch (err) {
       // noop

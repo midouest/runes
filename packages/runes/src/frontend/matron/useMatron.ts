@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Context } from "./Context";
-import { Matron } from "./Matron";
+import { MatronWorker } from "./MatronWorker";
 
-export function useMatron(): Matron | null {
+export function useMatron(): MatronWorker | null {
   return useContext(Context);
 }

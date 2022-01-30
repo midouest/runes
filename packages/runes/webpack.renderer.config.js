@@ -20,11 +20,19 @@ const plugins = [
 ];
 
 module.exports = {
+  output: {
+    chunkFilename: "main_window/[name].js",
+    publicPath: "../",
+  },
   module: {
     rules,
   },
   plugins,
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".css"],
+    fallback: {
+      fs: false,
+      path: false,
+    },
   },
 };
