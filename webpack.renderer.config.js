@@ -18,6 +18,11 @@ const rules = [
 const plugins = [
   ...basePlugins,
   new MonacoEditorWebpackPlugin({ languages: ["lua"] }),
+  // HACK: Having difficulty configuring webpack to detect these files so just
+  // copy them directly to the output. The .wasm file can be detected with a
+  // loader, but the .data file is fetched via XHR. This plugin gets executed
+  // for renderer AND preload, so we end up with duplicates of both of these
+  // files.
   new CopyPlugin({
     patterns: [
       {
