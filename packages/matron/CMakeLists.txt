@@ -200,6 +200,11 @@ set(EMSCRIPTEN_LINK_FLAGS
      -s SINGLE_FILE=1 \
      --no-entry \
      --embed-file ${NORNS_DIR}/resources@/${HOME}/norns/resources \
-     --embed-file ${NORNS_DIR}/lua@/${HOME}/norns/lua \
+     --embed-file ${NORNS_DIR}/lua/core/config.lua@/${HOME}/norns/lua/core/config.lua \
+     --embed-file ${NORNS_DIR}/lua/core/norns.lua@/${HOME}/norns/lua/core/norns.lua \
+     --embed-file ${NORNS_DIR}/lua/core/screen.lua@/${HOME}/norns/lua/core/screen.lua \
+     --embed-file ${NORNS_DIR}/lua/core/startup.lua@/${HOME}/norns/lua/core/startup.lua \
+     --embed-file ${NORNS_DIR}/lua/lib/tabutil.lua@/${HOME}/norns/lua/lib/tabutil.lua \
+     --embed-file ${NORNS_DIR}/lua/lib/util.lua@/${HOME}/norns/lua/lib/util.lua \
      --embed-file ${NORNS_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
 set_target_properties(index PROPERTIES LINK_FLAGS ${EMSCRIPTEN_LINK_FLAGS})
