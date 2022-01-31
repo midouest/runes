@@ -17,6 +17,7 @@
 $ git submodule init
 $ git submodule update
 $ yarn install
-$ yarn build-matron
-$ yarn start-runes
+$ yarn configure
+$ yarn build
+$ yarn start
 ```
