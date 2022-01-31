@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMatron } from "../matron";
 import styled from "styled-components";
 import { MonacoEditor } from "../monaco";
-import { parse } from "luaparse";
 
 const initialCode = `
 function redraw()
@@ -16,13 +15,6 @@ function redraw()
   screen.update()
 end
 `;
-
-function redraw(code: string): string {
-  return `${code}
-screen.save()
-redraw()
-screen.restore()`;
-}
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -44,24 +36,17 @@ export function ScratchPad(): JSX.Element {
     matron.transferCanvas(offscreen);
   }, []);
 
+  const execute = (value: string) => {
+    matron?.execute(value);
+    runesApi.eval(value);
+  };
+
   const runCode = () => {
-    try {
-      parse(code);
-      matron?.execute(code);
-      runesApi.eval(code);
-    } catch (err) {
-      // noop
-    }
+    execute(code);
   };
 
   const updateCode = (value: string) => {
-    try {
-      parse(value);
-      matron?.execute(value);
-      runesApi.eval(value);
-    } catch (err) {
-      // noop
-    }
+    execute(value);
     setCode(value);
   };
 

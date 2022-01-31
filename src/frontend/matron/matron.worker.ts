@@ -22,15 +22,13 @@ function render(): void {
   }
 
   const context = canvas.getContext("2d");
-  if (context === null) {
+  if (context === null || !matron.isDirty()) {
     return;
   }
 
   const screen = matron.getScreen();
   const data = new ImageData(screen, 128, 64);
   context.putImageData(data, 0, 0);
-
-  // requestAnimationFrame(render);
 }
 
 function handleTransferCanvas(message: Offscreen): void {
@@ -40,14 +38,13 @@ function handleTransferCanvas(message: Offscreen): void {
   }
 
   canvas = message.canvas;
-  // requestAnimationFrame(render);
   postMessage(result(message));
 }
 
 function appendRedraw(code: string): string {
   return `${code}
 screen.save()
-redraw()
+pcall(redraw)
 screen.restore()`;
 }
 
