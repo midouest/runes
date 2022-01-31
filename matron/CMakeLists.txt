@@ -17,8 +17,8 @@ elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
     set(CFLAGS -O3)
     set(LDFLAGS -O3)
 elseif(CMAKE_BUILD_TYPE MATCHES RELWITHDEBINFO)
-    set(CFLAGS -O3 -g)
-    set(LDFLAGS -O3 -g)
+    set(CFLAGS "-O3 -g")
+    set(LDFLAGS "-O3 -g")
 endif()
 
 # ZLIB #########################################################################
