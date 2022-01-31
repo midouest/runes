@@ -27,7 +27,7 @@ export class MatronWorker {
         resolve(matronWorker);
       };
 
-      const worker = new Worker("./matron.worker.js", {
+      const worker = new Worker(new URL("./matron.worker", import.meta.url), {
         name: "matron.worker",
         type: "module",
       });
