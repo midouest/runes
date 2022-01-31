@@ -20,13 +20,23 @@ const plugins = [
   new MonacoEditorWebpackPlugin({ languages: ["lua"] }),
   new CopyPlugin({
     patterns: [
-      { from: "./matron/build/matron.wasm", to: "matron.worker/matron.wasm" },
-      { from: "./matron/build/matron.data", to: "matron.worker/matron.data" },
+      {
+        from: "./matron/build/matron.wasm",
+        to: "matron.wasm",
+      },
+      {
+        from: "./matron/build/matron.data",
+        to: "matron.data",
+      },
     ],
   }),
 ];
 
 module.exports = {
+  output: {
+    chunkFilename: "main_window/[name].js",
+    publicPath: "../",
+  },
   module: {
     rules,
   },
