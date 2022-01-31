@@ -7,9 +7,25 @@ set(DIST_DIR ${CMAKE_CURRENT_BINARY_DIR}/dist)
 set(INCLUDE_DIR ${DIST_DIR}/include)
 set(STATIC_LIB_DIR ${DIST_DIR}/lib)
 
+if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+    set(CFLAGS -g)
+    set(LDFLAGS -g)
+elseif(CMAKE_BUILD_TYPE MATCHES MINSIZEREL)
+    set(CFLAGS -Os)
+    set(LDFLAGS -Os)
+elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
+    set(CFLAGS -O3)
+    set(LDFLAGS -O3)
+elseif(CMAKE_BUILD_TYPE MATCHES RELWITHDEBINFO)
+    set(CFLAGS -O3 -g)
+    set(LDFLAGS -O3 -g)
+endif()
+
 # ZLIB #########################################################################
 
-set(Z_CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>)
+set(Z_CMAKE_ARGS
+    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+    -DCMAKE_C_FLAGS=${CFLAGS})
 set(Z_STATIC_LIB ${STATIC_LIB_DIR}/libz.a)
 
 ExternalProject_Add(
@@ -34,7 +50,8 @@ set(PNG_CMAKE_ARGS
     -DM_LIBRARY=""
     -DZLIB_INCLUDE_DIR=${INCLUDE_DIR}
     -DZLIB_LIBRARY=${Z_STATIC_LIB}
-    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>)
+    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+    -DCMAKE_C_FLAGS=${CFLAGS})
 
 ExternalProject_Add(
     libpng
@@ -54,7 +71,9 @@ set_target_properties(png PROPERTIES IMPORTED_LOCATION ${PNG_STATIC_LIB})
 # FREETYPE #####################################################################
 
 set(FREETYPE_STATIC_LIB ${STATIC_LIB_DIR}/libfreetype.a)
-set(FREETYPE_CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>)
+set(FREETYPE_CMAKE_ARGS
+    -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>
+    -DCMAKE_C_FLAGS=${CFLAGS})
 
 ExternalProject_Add(
     libfreetype
@@ -77,8 +96,8 @@ set(PIXMAN_SOURCE_DIR ${PIXMAN_PREFIX}/src/pixman)
 set(PIXMAN_STATIC_LIB ${STATIC_LIB_DIR}/libpixman-1.a)
 set(PIXMAN_CONFIGURE_COMMAND
     emconfigure ${PIXMAN_SOURCE_DIR}/configure
-    "CFLAGS=-mbulk-memory -matomics -g"
-    "LDFLAGS=-g"
+    "CFLAGS=-mbulk-memory -matomics ${CFLAGS}"
+    LDFLAGS=${LDFLAGS}
     --enable-shared=no
     --prefix=<INSTALL_DIR>)
 
@@ -107,8 +126,8 @@ set(CAIRO_CONFIGURE_COMMAND
     emconfigure ${CAIRO_SOURCE_DIR}/configure
     "PKG_CONFIG_PATH=${STATIC_LIB_DIR}/pkgconfig"
     "png_REQUIRES=libpng"
-    "CFLAGS=-I${INCLUDE_DIR} -I${INCLUDE_DIR}/libpng16 -mbulk-memory -matomics -g"
-    "LDFLAGS=-L${STATIC_LIB_DIR} -g"
+    "CFLAGS=-I${INCLUDE_DIR} -I${INCLUDE_DIR}/libpng16 -mbulk-memory -matomics ${CFLAGS}"
+    "LDFLAGS=-L${STATIC_LIB_DIR} ${LDFLAGS}"
     "LIBS=-lpng16 -lz"
     "pixman_CFLAGS=-I${INCLUDE_DIR}/pixman-1"
     "pixman_LIBS=-L${STATIC_LIB_DIR} -lpixman-1"
@@ -146,7 +165,7 @@ ExternalProject_Add(
     INSTALL_DIR ${DIST_DIR}
     CONFIGURE_COMMAND ""
     BUILD_IN_SOURCE 1
-    BUILD_COMMAND emmake make "CC=emcc" "AR=emar rcu" "RANLIB=emranlib" "CFLAGS=-g" "LDFLAGS=-g" posix
+    BUILD_COMMAND emmake make "CC=emcc" "AR=emar rcu" "RANLIB=emranlib" "CFLAGS=${CFLAGS}" "LDFLAGS=${LDFLAGS}" posix
     INSTALL_COMMAND emmake make "INSTALL_TOP=<INSTALL_DIR>" install
     BUILD_BYPRODUCTS ${LUA_STATIC_LIB}
 )
@@ -186,11 +205,12 @@ target_link_libraries(matron z png pixman freetype cairo lua)
 set(USER web_user)
 set(HOME /home/${USER})
 
-set(EMSCRIPTEN_COMPILE_FLAGS "-g")
-set_target_properties(matron PROPERTIES COMPILE_FLAGS ${EMSCRIPTEN_COMPILE_FLAGS})
+if(CFLAGS)
+    set_target_properties(matron PROPERTIES COMPILE_FLAGS ${CFLAGS})
+endif()
 
 set(EMSCRIPTEN_LINK_FLAGS
-    "-g \
+    "${LDFLAGS} \
      -s INITIAL_MEMORY=32MB \
      -s ALLOW_MEMORY_GROWTH=1 \
      -s EXPORTED_RUNTIME_METHODS=cwrap \
