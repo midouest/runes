@@ -1,4 +1,4 @@
-project(norns-wasm)
+project(matron-web)
 cmake_minimum_required(VERSION 3.22)
 
 include(ExternalProject)
@@ -172,7 +172,7 @@ include_directories(
 
 link_directories(${STATIC_LIB_DIR})
 
-add_executable(index
+add_executable(matron
     ${MATRON_SRC_DIR}/config.c
     ${MATRON_SRC_DIR}/lua_eval.c
     ${MATRON_SRC_DIR}/weaver.c
@@ -180,14 +180,14 @@ add_executable(index
     ${MATRON_SRC_DIR}/hardware/screen.c
     ${MATRON_SRC_DIR}/hardware/screen/static.c)
 
-add_dependencies(index z png pixman freetype cairo lua)
-target_link_libraries(index z png pixman freetype cairo lua)
+add_dependencies(matron z png pixman freetype cairo lua)
+target_link_libraries(matron z png pixman freetype cairo lua)
 
 set(USER web_user)
 set(HOME /home/${USER})
 
 set(EMSCRIPTEN_COMPILE_FLAGS "-g")
-set_target_properties(index PROPERTIES COMPILE_FLAGS ${EMSCRIPTEN_COMPILE_FLAGS})
+set_target_properties(matron PROPERTIES COMPILE_FLAGS ${EMSCRIPTEN_COMPILE_FLAGS})
 
 set(EMSCRIPTEN_LINK_FLAGS
     "-g \
@@ -196,15 +196,13 @@ set(EMSCRIPTEN_LINK_FLAGS
      -s EXPORTED_RUNTIME_METHODS=cwrap \
      -s MODULARIZE \
      -s EXPORT_ES6=1 \
-     -s ENVIRONMENT='web,worker' \
-     -s SINGLE_FILE=1 \
      --no-entry \
-     --embed-file ${NORNS_DIR}/resources@/${HOME}/norns/resources \
-     --embed-file ${NORNS_DIR}/lua/core/config.lua@/${HOME}/norns/lua/core/config.lua \
-     --embed-file ${NORNS_DIR}/lua/core/norns.lua@/${HOME}/norns/lua/core/norns.lua \
-     --embed-file ${NORNS_DIR}/lua/core/screen.lua@/${HOME}/norns/lua/core/screen.lua \
-     --embed-file ${NORNS_DIR}/lua/core/startup.lua@/${HOME}/norns/lua/core/startup.lua \
-     --embed-file ${NORNS_DIR}/lua/lib/tabutil.lua@/${HOME}/norns/lua/lib/tabutil.lua \
-     --embed-file ${NORNS_DIR}/lua/lib/util.lua@/${HOME}/norns/lua/lib/util.lua \
-     --embed-file ${NORNS_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
-set_target_properties(index PROPERTIES LINK_FLAGS ${EMSCRIPTEN_LINK_FLAGS})
+     --preload-file ${NORNS_DIR}/resources@/${HOME}/norns/resources \
+     --preload-file ${NORNS_DIR}/lua/core/config.lua@/${HOME}/norns/lua/core/config.lua \
+     --preload-file ${NORNS_DIR}/lua/core/norns.lua@/${HOME}/norns/lua/core/norns.lua \
+     --preload-file ${NORNS_DIR}/lua/core/screen.lua@/${HOME}/norns/lua/core/screen.lua \
+     --preload-file ${NORNS_DIR}/lua/core/startup.lua@/${HOME}/norns/lua/core/startup.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/tabutil.lua@/${HOME}/norns/lua/lib/tabutil.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/util.lua@/${HOME}/norns/lua/lib/util.lua \
+     --preload-file ${NORNS_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
+set_target_properties(matron PROPERTIES LINK_FLAGS ${EMSCRIPTEN_LINK_FLAGS})

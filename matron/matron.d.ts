@@ -2,6 +2,6 @@ export interface MatronEmscriptenModule extends EmscriptenModule {
   cwrap: typeof cwrap;
 }
 
-declare var matronModuleFactory: EmscriptenModuleFactory<MatronEmscriptenModule>;
+declare const matronModuleFactory: EmscriptenModuleFactory<MatronEmscriptenModule>;
 
 export default matronModuleFactory;

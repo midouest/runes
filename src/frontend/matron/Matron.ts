@@ -1,4 +1,6 @@
-import matronModuleFactory, { MatronEmscriptenModule } from "@runes/matron";
+import matronModuleFactory, {
+  MatronEmscriptenModule,
+} from "../../../matron/build/matron";
 import { createMatronApi, MatronApi } from "./MatronApi";
 
 const SCREEN_WIDTH = 128;
@@ -8,7 +10,11 @@ const SCREEN_BYTE_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT * SCREEN_BYTES_PER_PIXEL;
 
 export class Matron {
   static async load(): Promise<Matron> {
-    const wasm = await matronModuleFactory();
+    const wasm = await matronModuleFactory({
+      locateFile: (url: string): string => {
+        return url;
+      },
+    });
     const api = createMatronApi(wasm);
     return new Matron(wasm, api);
   }

@@ -1,4 +1,4 @@
-import { MatronEmscriptenModule } from "@runes/matron";
+import { MatronEmscriptenModule } from "../../../matron/build/matron";
 
 export interface ConfigApi {
   init(): null;
