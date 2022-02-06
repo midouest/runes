@@ -1,7 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useMatron } from "../matron";
 import styled from "styled-components";
 import { MonacoEditor } from "../monaco";
+import * as luaparse from "luaparse";
+import * as monaco from "monaco-editor";
+import { findSteppable } from "./findSteppable";
 
 const initialCode = `
 function redraw()
@@ -26,6 +29,18 @@ export function ScratchPad(): JSX.Element {
   const [code, setCode] = useState(initialCode);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const linesRef = useRef<string[]>([]);
+  const astRef = useRef<luaparse.Chunk | null>(null);
+
+  useEffect(() => {
+    linesRef.current = code.split("\n");
+    try {
+      astRef.current = luaparse.parse(code, { locations: true });
+    } catch (err) {
+      astRef.current = null;
+    }
+  }, [code]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas === null || matron === null) {
@@ -36,7 +51,126 @@ export function ScratchPad(): JSX.Element {
     matron.transferCanvas(offscreen);
   }, []);
 
+  const contextKeyRef = useRef<monaco.editor.IContextKey<
+    luaparse.NumericLiteral | luaparse.UnaryExpression | null
+  > | null>(null);
+
+  const handleCreate = (editor: monaco.editor.IStandaloneCodeEditor) => {
+    contextKeyRef.current = editor.createContextKey("isNumberSelected", null);
+
+    editor.addAction({
+      id: "incrementSelectedNumber",
+      label: "Increment Selected Number",
+      keybindings: [
+        monaco.KeyMod.Alt | monaco.KeyMod.CtrlCmd | monaco.KeyCode.RightArrow,
+      ],
+      precondition: "isNumberSelected",
+      run: (editor) => stepNumber(editor, 1),
+    });
+
+    editor.addAction({
+      id: "incrementSelectedNumberMore",
+      label: "Increment Selected Number More",
+      keybindings: [
+        monaco.KeyMod.Shift |
+          monaco.KeyMod.Alt |
+          monaco.KeyMod.CtrlCmd |
+          monaco.KeyCode.RightArrow,
+      ],
+      precondition: "isNumberSelected",
+      run: (editor) => stepNumber(editor, 10),
+    });
+
+    editor.addAction({
+      id: "decrementSelectedNumber",
+      label: "Decrement Selected Number",
+      keybindings: [
+        monaco.KeyMod.Alt | monaco.KeyMod.CtrlCmd | monaco.KeyCode.LeftArrow,
+      ],
+      precondition: "isNumberSelected",
+      run: (editor) => stepNumber(editor, -1),
+    });
+
+    editor.addAction({
+      id: "decrementSelectedNumberMore",
+      label: "Decrement Selected Number More",
+      keybindings: [
+        monaco.KeyMod.Shift |
+          monaco.KeyMod.Alt |
+          monaco.KeyMod.CtrlCmd |
+          monaco.KeyCode.LeftArrow,
+      ],
+      precondition: "isNumberSelected",
+      run: (editor) => stepNumber(editor, -10),
+    });
+  };
+
+  const stepNumber = (editor: monaco.editor.ICodeEditor, amount: number) => {
+    const contextKey = contextKeyRef.current;
+    if (!contextKey) {
+      throw new Error("Expected context key ref to be current");
+    }
+
+    const node = contextKey.get();
+    if (!node?.loc) {
+      throw new Error("Expected context key node to be set with location");
+    }
+
+    const lines = linesRef.current;
+    const lineNumber = node.loc.start.line - 1;
+    const headLines = lines.slice(0, lineNumber);
+    const line = lines[lineNumber];
+    const start = node.loc.start.column;
+    const end = node.loc.end.column;
+    const head = line.slice(0, start);
+    const tail = line.slice(end);
+    const tailLines = lines.slice(lineNumber + 1);
+
+    let value;
+    if (node.type === "UnaryExpression") {
+      if (node.operator !== "-" || node.argument.type !== "NumericLiteral") {
+        throw new Error("Attempted to step unsupported unary expression");
+      }
+      value = -node.argument.value;
+    } else {
+      if (node.type !== "NumericLiteral") {
+        throw new Error("Attempted to step unsupported node");
+      }
+      value = node.value;
+    }
+
+    const newValue = value + amount;
+    const newLine = `${head}${newValue}${tail}`;
+    const newLines = [...headLines, newLine, ...tailLines];
+    const newCode = newLines.join("\n");
+
+    setCode(newCode);
+    editor.getModel()?.setValue(newCode);
+    editor.setPosition({
+      lineNumber: lineNumber + 1,
+      column: start + 1,
+    });
+  };
+
+  const handlePositionChange = (
+    event: monaco.editor.ICursorPositionChangedEvent
+  ) => {
+    const contextKey = contextKeyRef.current;
+    const ast = astRef.current;
+    if (contextKey === null || ast === null) {
+      return;
+    }
+
+    const { lineNumber, column } = event.position;
+    const node = findSteppable(ast, lineNumber, column);
+    contextKey.set(node);
+  };
+
   const execute = (value: string) => {
+    if (astRef.current === null) {
+      return;
+    }
+
     matron?.execute(value);
     runesApi.eval(value);
   };
@@ -55,7 +189,12 @@ export function ScratchPad(): JSX.Element {
   return (
     <FlexWrapper>
       <canvas ref={canvasRef} width={128} height={64} />
-      <MonacoEditor initialValue={code} onChange={updateCode} />
+      <MonacoEditor
+        initialValue={code}
+        onCreate={handleCreate}
+        onContentChange={updateCode}
+        onPositionChange={handlePositionChange}
+      />
       <button onClick={runCode}>Run</button>
     </FlexWrapper>
   );

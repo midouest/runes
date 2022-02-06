@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useMonaco } from "./useMonaco";
 import styled from "styled-components";
+import * as monaco from "monaco-editor";
 
 const Container = styled.div`
   width: 512px;
@@ -9,12 +10,16 @@ const Container = styled.div`
 
 export interface MonacoEditorProps {
   initialValue: string;
-  onChange: (code: string) => void;
+  onCreate?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
+  onContentChange?: (content: string) => void;
+  onPositionChange?: (event: monaco.editor.ICursorPositionChangedEvent) => void;
 }
 
 export function MonacoEditor({
   initialValue,
-  onChange,
+  onCreate,
+  onContentChange,
+  onPositionChange,
 }: MonacoEditorProps): JSX.Element {
   const [editor, setEditorCallback] = useMonaco(initialValue);
 
@@ -23,13 +28,29 @@ export function MonacoEditor({
       return;
     }
 
-    const disposable = editor.onDidChangeModelContent(() => {
-      const value = editor.getValue();
-      onChange(value);
-    });
+    onCreate && onCreate(editor);
+
+    const disposables: monaco.IDisposable[] = [];
+
+    if (onContentChange) {
+      const disposable = editor.onDidChangeModelContent(() => {
+        const value = editor.getValue();
+        onContentChange(value);
+      });
+      disposables.push(disposable);
+    }
+
+    if (onPositionChange) {
+      const disposable = editor.onDidChangeCursorPosition((event) => {
+        onPositionChange(event);
+      });
+      disposables.push(disposable);
+    }
 
     return () => {
-      disposable.dispose();
+      for (const disposable of disposables) {
+        disposable.dispose();
+      }
     };
   }, [editor]);
 
