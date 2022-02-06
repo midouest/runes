@@ -3,10 +3,10 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "start-runes",
+      "script": "start",
       "problemMatcher": [],
-      "label": "npm: start-runes",
-      "detail": "yarn workspace @runes/runes start",
+      "label": "npm: start",
+      "detail": "yarn start",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -14,10 +14,10 @@
     },
     {
       "type": "npm",
-      "script": "build-matron",
+      "script": "build",
       "problemMatcher": [],
-      "label": "npm: build-matron",
-      "detail": "yarn workspace @runes/matron build",
+      "label": "npm: build",
+      "detail": "yarn build",
       "group": {
         "kind": "build",
         "isDefault": true
