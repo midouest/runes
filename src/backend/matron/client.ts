@@ -1,4 +1,4 @@
-import WebSocket from "ws";
+import { WebSocket } from "ws";
 import { connectWebSocket } from "./websocket";
 
 export class MatronClient {

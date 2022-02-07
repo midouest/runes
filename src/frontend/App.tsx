@@ -1,6 +1,6 @@
 import React from "react";
-import { Provider, useStartMatronWorker } from "./matron";
-import { ScratchPad } from "./scratchpad/ScratchPad";
+import { Provider, useStartMatronWorker } from "render/matron";
+import { ScratchPad } from "render/scratchpad/ScratchPad";
 
 export function App(): JSX.Element {
   const matron = useStartMatronWorker();

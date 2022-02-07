@@ -12,7 +12,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*"],
+      "main/*": ["src/backend/*"],
+      "bridge/*": ["src/bridge/*"],
+      "render/*": ["src/frontend/*"],
+      "matron-wasm": ["matron/build/matron"]
     },
     "jsx": "react"
   },

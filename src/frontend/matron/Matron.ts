@@ -1,6 +1,4 @@
-import matronModuleFactory, {
-  MatronEmscriptenModule,
-} from "../../../matron/build/matron";
+import matronModuleFactory, { MatronEmscriptenModule } from "matron-wasm";
 import { createMatronApi, MatronApi } from "./MatronApi";
 
 const SCREEN_WIDTH = 128;

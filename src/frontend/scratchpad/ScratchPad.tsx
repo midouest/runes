@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useMatron } from "../matron";
+import { useMatron } from "render/matron";
 import styled from "styled-components";
-import { MonacoEditor } from "../monaco";
+import { MonacoEditor } from "render/monaco";
 import * as luaparse from "luaparse";
 import * as monaco from "monaco-editor";
 import { findSteppable } from "./findSteppable";
