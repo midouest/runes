@@ -1,3 +1,5 @@
+const path = require("path");
+
 const baseRules = require("./webpack.rules");
 const basePlugins = require("./webpack.plugins");
 const MonacoEditorWebpackPlugin = require("monaco-editor-webpack-plugin");
@@ -53,6 +55,11 @@ module.exports = {
       path: false,
       crypto: false,
       child_process: false,
+    },
+    alias: {
+      bridge: path.resolve(__dirname, "src/bridge"),
+      render: path.resolve(__dirname, "src/frontend"),
+      "matron-wasm": path.resolve(__dirname, "matron/build/matron"),
     },
   },
 };

@@ -1,4 +1,5 @@
 import { WebSocket } from "ws";
+
 import { connectWebSocket } from "./websocket";
 
 export class MatronClient {

@@ -1,8 +1,7 @@
+import { session } from "electron";
+import * as fs from "fs/promises";
 import * as os from "os";
 import * as path from "path";
-import * as fs from "fs/promises";
-
-import { session } from "electron";
 
 const EXTENSIONS = {
   "React Dev Tools": "fmkadmapgofadopljbjfkapdkoienihi",

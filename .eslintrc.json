@@ -9,7 +9,7 @@
       "typescript": {}
     }
   },
-  "ignorePatterns": ["webpack.*.js", "webpack.*.config.js"],
+  "ignorePatterns": ["/matron/build", "webpack.*.js", "webpack.*.config.js"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -19,5 +19,44 @@
     "plugin:import/typescript"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["import"]
+  "plugins": ["import"],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
+        },
+        "newlines-between": "always",
+        "warnOnUnassignedImports": true,
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "main/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "bridge/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "render/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "matron-wasm",
+            "group": "internal"
+          }
+        ]
+      }
+    ]
+  }
 }

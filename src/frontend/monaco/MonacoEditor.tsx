@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import { useMonaco } from "./useMonaco";
-import styled from "styled-components";
 import * as monaco from "monaco-editor";
+import React, { useEffect } from "react";
+import styled from "styled-components";
+
+import { useMonaco } from "./useMonaco";
 
 const Container = styled.div`
   width: 512px;

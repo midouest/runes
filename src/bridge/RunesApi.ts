@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron";
+
 import { RunesApiBridge } from "./interface";
 
 export const RunesApi: RunesApiBridge = {

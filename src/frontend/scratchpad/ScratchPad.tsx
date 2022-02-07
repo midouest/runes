@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useMatron } from "render/matron";
-import styled from "styled-components";
-import { MonacoEditor } from "render/monaco";
 import * as luaparse from "luaparse";
 import * as monaco from "monaco-editor";
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+
+import { useMatron } from "render/matron";
+import { MonacoEditor } from "render/monaco";
+
 import { findSteppable } from "./findSteppable";
 
 const initialCode = `
