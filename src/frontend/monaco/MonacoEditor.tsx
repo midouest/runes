@@ -8,11 +8,16 @@ const Container = styled.div`
   height: 256px;
 `;
 
+export type Editor = monaco.editor.IStandaloneCodeEditor;
+
 export interface MonacoEditorProps {
   initialValue: string;
-  onCreate?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
-  onContentChange?: (content: string) => void;
-  onPositionChange?: (event: monaco.editor.ICursorPositionChangedEvent) => void;
+  onCreate?: (editor: Editor) => void;
+  onContentChange?: (content: string, editor: Editor) => void;
+  onPositionChange?: (
+    event: monaco.editor.ICursorPositionChangedEvent,
+    editor: Editor
+  ) => void;
 }
 
 export function MonacoEditor({
@@ -35,14 +40,14 @@ export function MonacoEditor({
     if (onContentChange) {
       const disposable = editor.onDidChangeModelContent(() => {
         const value = editor.getValue();
-        onContentChange(value);
+        onContentChange(value, editor);
       });
       disposables.push(disposable);
     }
 
     if (onPositionChange) {
       const disposable = editor.onDidChangeCursorPosition((event) => {
-        onPositionChange(event);
+        onPositionChange(event, editor);
       });
       disposables.push(disposable);
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMatron } from "../matron";
 import styled from "styled-components";
 import { MonacoEditor } from "../monaco";
@@ -28,18 +28,6 @@ export function ScratchPad(): JSX.Element {
   const matron = useMatron();
   const [code, setCode] = useState(initialCode);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  const linesRef = useRef<string[]>([]);
-  const astRef = useRef<luaparse.Chunk | null>(null);
-
-  useEffect(() => {
-    linesRef.current = code.split("\n");
-    try {
-      astRef.current = luaparse.parse(code, { locations: true });
-    } catch (err) {
-      astRef.current = null;
-    }
-  }, [code]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -116,7 +104,8 @@ export function ScratchPad(): JSX.Element {
       throw new Error("Expected context key node to be set with location");
     }
 
-    const lines = linesRef.current;
+    const content = editor.getValue();
+    const lines = content.split("\n");
     const lineNumber = node.loc.start.line - 1;
     const headLines = lines.slice(0, lineNumber);
     const line = lines[lineNumber];
@@ -153,24 +142,26 @@ export function ScratchPad(): JSX.Element {
   };
 
   const handlePositionChange = (
-    event: monaco.editor.ICursorPositionChangedEvent
+    event: monaco.editor.ICursorPositionChangedEvent,
+    editor: monaco.editor.IStandaloneCodeEditor
   ) => {
     const contextKey = contextKeyRef.current;
-    const ast = astRef.current;
-    if (contextKey === null || ast === null) {
+    if (contextKey === null) {
       return;
     }
 
-    const { lineNumber, column } = event.position;
-    const node = findSteppable(ast, lineNumber, column);
-    contextKey.set(node);
+    const content = editor.getValue();
+    try {
+      const ast = luaparse.parse(content, { locations: true });
+      const { lineNumber, column } = event.position;
+      const node = findSteppable(ast, lineNumber, column);
+      contextKey.set(node);
+    } catch (err) {
+      contextKey.set(null);
+    }
   };
 
   const execute = (value: string) => {
-    if (astRef.current === null) {
-      return;
-    }
-
     matron?.execute(value);
     runesApi.eval(value);
   };
