@@ -174,6 +174,18 @@ add_library(lua STATIC IMPORTED GLOBAL)
 add_dependencies(lua liblua)
 set_target_properties(lua PROPERTIES IMPORTED_LOCATION ${LUA_STATIC_LIB})
 
+# OPENBSD HEADERS ##############################################################
+
+set(SYS_INCLUDE_DIR ${INCLUDE_DIR}/sys)
+set(SYS_BASE_URL https://cvsweb.openbsd.org/cgi-bin/cvsweb/~checkout~/src/sys/sys)
+
+file(DOWNLOAD
+    ${SYS_BASE_URL}/_null.h?rev=1.1&content-type=text/plain
+    ${SYS_INCLUDE_DIR}/_null.h)
+
+file(DOWNLOAD
+    ${SYS_BASE_URL}/queue.h?rev=1.46&content-type=text/plain
+    ${SYS_INCLUDE_DIR}/queue.h)
 
 # MATRON #######################################################################
 
@@ -184,7 +196,6 @@ include_directories(
     ${INCLUDE_DIR}/cairo
     ${INCLUDE_DIR}/freetype2
     ${INCLUDE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${MATRON_SRC_DIR}
     ${MATRON_SRC_DIR}/hardware
     ${MATRON_SRC_DIR}/hardware/screen)
