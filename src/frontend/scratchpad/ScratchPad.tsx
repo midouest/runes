@@ -26,6 +26,13 @@ const FlexWrapper = styled.div`
   flex-direction: column;
 `;
 
+const MatronCanvas = styled.canvas`
+  background: black;
+  width: 512px;
+  height: 256px;
+  image-rendering: pixelated;
+`;
+
 export function ScratchPad(): JSX.Element {
   const matron = useMatron();
   const [code, setCode] = useState(initialCode);
@@ -181,7 +188,7 @@ export function ScratchPad(): JSX.Element {
 
   return (
     <FlexWrapper>
-      <canvas ref={canvasRef} width={128} height={64} />
+      <MatronCanvas ref={canvasRef} width={128} height={64} />
       <MonacoEditor
         initialValue={code}
         onCreate={handleCreate}
