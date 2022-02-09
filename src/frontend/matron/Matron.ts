@@ -1,4 +1,5 @@
 import matronModuleFactory, { MatronEmscriptenModule } from "matron-wasm";
+import { noop } from "render/util/function";
 
 import { createMatronApi, MatronApi } from "./MatronApi";
 
@@ -10,6 +11,7 @@ const SCREEN_BYTE_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT * SCREEN_BYTES_PER_PIXEL;
 export class Matron {
   static async load(): Promise<Matron> {
     const wasm = await matronModuleFactory({
+      printErr: noop,
       locateFile: (url: string): string => {
         return url;
       },
