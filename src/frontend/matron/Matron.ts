@@ -2,9 +2,8 @@ import matronModuleFactory, { MatronEmscriptenModule } from "matron-wasm";
 import { noop } from "render/util/function";
 
 import { createMatronApi, MatronApi } from "./MatronApi";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 
-const SCREEN_WIDTH = 128;
-const SCREEN_HEIGHT = 64;
 const SCREEN_BYTES_PER_PIXEL = 4;
 const SCREEN_BYTE_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT * SCREEN_BYTES_PER_PIXEL;
 

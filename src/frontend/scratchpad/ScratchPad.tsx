@@ -3,7 +3,7 @@ import * as monaco from "monaco-editor";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { useMatron } from "render/matron";
+import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "render/matron";
 import { MonacoEditor } from "render/monaco";
 
 import { findSteppable } from "./findSteppable";
@@ -188,7 +188,11 @@ export function ScratchPad(): JSX.Element {
 
   return (
     <FlexWrapper>
-      <MatronCanvas ref={canvasRef} width={128} height={64} />
+      <MatronCanvas
+        ref={canvasRef}
+        width={SCREEN_WIDTH}
+        height={SCREEN_HEIGHT}
+      />
       <MonacoEditor
         initialValue={code}
         onCreate={handleCreate}
