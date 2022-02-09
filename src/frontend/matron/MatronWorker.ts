@@ -43,6 +43,11 @@ export class MatronWorker {
   ) {}
 
   transferCanvas(canvas: OffscreenCanvas): Promise<void> {
+    // There appears to be a type-mismatch between @types/offscreencanvas and
+    // Typescript's dom typings. Typescript thinks OffscreenCanvas does not
+    // implement Transferrable. However, this is the expected usage according to
+    // the OffscreenCanvas docs.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this._send({ type: OFFSCREEN_TYPE, canvas }, [canvas as any]);
   }
 
