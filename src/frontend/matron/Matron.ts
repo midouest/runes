@@ -1,19 +1,37 @@
 import matronModuleFactory, { MatronEmscriptenModule } from "matron-wasm";
 import { noop } from "render/util/function";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import matronDataUrl from "../../../matron/build/matron.data";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import matronWasmUrl from "../../../matron/build/matron.wasm";
+
 import { createMatronApi, MatronApi } from "./MatronApi";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 
 const SCREEN_BYTES_PER_PIXEL = 4;
 const SCREEN_BYTE_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT * SCREEN_BYTES_PER_PIXEL;
 
+function locateFile(url: string): string {
+  switch (url) {
+    case "matron.wasm":
+      return matronWasmUrl;
+
+    case "matron.data":
+      return matronDataUrl;
+
+    default:
+      return url;
+  }
+}
+
 export class Matron {
   static async load(): Promise<Matron> {
     const wasm = await matronModuleFactory({
       printErr: noop,
-      locateFile: (url: string): string => {
-        return url;
-      },
+      locateFile,
     });
     const api = createMatronApi(wasm);
     return new Matron(wasm, api);

@@ -1,6 +1,5 @@
 import * as path from "path";
 
-import CopyPlugin from "copy-webpack-plugin";
 import MonacoEditorWebpackPlugin from "monaco-editor-webpack-plugin";
 import { Configuration } from "webpack";
 
@@ -17,28 +16,19 @@ const rules = [
     test: /\.ttf$/,
     type: "asset/resource",
   },
+  {
+    test: /\.wasm$/,
+    type: "asset/resource",
+  },
+  {
+    test: /\.data$/,
+    type: "asset/resource",
+  },
 ];
 
 const plugins = [
   ...basePlugins,
   new MonacoEditorWebpackPlugin({ languages: ["lua"] }),
-  // HACK: Having difficulty configuring webpack to detect these files so just
-  // copy them directly to the output. The .wasm file can be detected with a
-  // loader, but the .data file is fetched via XHR. This plugin gets executed
-  // for renderer AND preload, so we end up with duplicates of both of these
-  // files.
-  new CopyPlugin({
-    patterns: [
-      {
-        from: "./matron/build/matron.wasm",
-        to: "matron.wasm",
-      },
-      {
-        from: "./matron/build/matron.data",
-        to: "matron.data",
-      },
-    ],
-  }),
 ];
 
 const config: Configuration = {
