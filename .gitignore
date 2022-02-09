@@ -87,3 +87,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# Compiled webpack configuration
+/webpack.*.js

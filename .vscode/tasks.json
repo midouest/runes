@@ -14,10 +14,10 @@
     },
     {
       "type": "npm",
-      "script": "build",
+      "script": "build-matron",
       "problemMatcher": [],
-      "label": "npm: build",
-      "detail": "yarn build",
+      "label": "npm: build-matron",
+      "detail": "yarn build-matron",
       "group": {
         "kind": "build",
         "isDefault": true

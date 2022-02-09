@@ -1,9 +1,11 @@
-const path = require("path");
+import * as path from "path";
 
-const baseRules = require("./webpack.rules");
-const basePlugins = require("./webpack.plugins");
-const MonacoEditorWebpackPlugin = require("monaco-editor-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+import CopyPlugin from "copy-webpack-plugin";
+import MonacoEditorWebpackPlugin from "monaco-editor-webpack-plugin";
+import { Configuration } from "webpack";
+
+import basePlugins from "./webpack.plugins";
+import baseRules from "./webpack.rules";
 
 const rules = [
   ...baseRules,
@@ -39,7 +41,7 @@ const plugins = [
   }),
 ];
 
-module.exports = {
+const config: Configuration = {
   output: {
     chunkFilename: "main_window/[name].js",
     publicPath: "../",
@@ -63,3 +65,5 @@ module.exports = {
     },
   },
 };
+
+export = config;
