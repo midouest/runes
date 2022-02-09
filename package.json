@@ -6,7 +6,7 @@
   "main": ".webpack/main",
   "scripts": {
     "configure-matron": "cd matron && emcmake cmake -Bbuild -H.",
-    "build-matron": "cd matron && cmake --build build --target matron && cp matron.d.ts build",
+    "build-matron": "cd matron && cmake --build build --target matron",
     "build-config": "tsc --build tsconfig.webpack.json",
     "clean": "rm -rf matron/build",
     "start": "yarn build-config && electron-forge start",

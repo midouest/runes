@@ -237,3 +237,8 @@ set(EMSCRIPTEN_LINK_FLAGS
      --preload-file ${NORNS_DIR}/lua/lib/util.lua@/${HOME}/norns/lua/lib/util.lua \
      --preload-file ${NORNS_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
 set_target_properties(matron PROPERTIES LINK_FLAGS ${EMSCRIPTEN_LINK_FLAGS})
+
+# MISC #########################################################################
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/matron.d.ts
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
