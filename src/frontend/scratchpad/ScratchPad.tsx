@@ -182,13 +182,13 @@ export function ScratchPad(): JSX.Element {
     }
   };
 
-  const execute = (value: string) => {
-    matron?.execute(value);
+  const execute = (value: string, shouldInit?: boolean) => {
+    matron?.execute(value, shouldInit);
     runesApi.eval(value);
   };
 
-  const runCode = () => {
-    execute(code);
+  const init = () => {
+    matron?.init();
   };
 
   const updateCode = (value: string) => {
@@ -196,7 +196,7 @@ export function ScratchPad(): JSX.Element {
     setCode(value);
   };
 
-  useEffect(() => runCode(), []);
+  useEffect(() => execute(code, true), []);
 
   return (
     <FlexWrapper>
@@ -211,7 +211,7 @@ export function ScratchPad(): JSX.Element {
         onContentChange={updateCode}
         onPositionChange={handlePositionChange}
       />
-      <button onClick={runCode}>Run</button>
+      <button onClick={init}>Init</button>
     </FlexWrapper>
   );
 }

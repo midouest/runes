@@ -47,6 +47,11 @@ function handleTransferCanvas(message: Offscreen): void {
   postMessage(result(message));
 }
 
+function appendInit(code: string): string {
+  return `${code}
+pcall(init)`;
+}
+
 function appendRedraw(code: string): string {
   return `${code}
 screen.save()
@@ -60,8 +65,9 @@ function handleInit(message: Init): void {
     return;
   }
 
-  const redraw = appendRedraw("init()");
+  const redraw = appendRedraw(appendInit(""));
   matron.exec(redraw);
+  render();
   postMessage(result(message));
 }
 
@@ -73,8 +79,9 @@ function handleKey(message: Key): void {
 
   const { n, isDown } = message;
   const z = Number(isDown);
-  const redraw = appendRedraw(`key(${n},${z})`);
+  const redraw = appendRedraw(`pcall(key,${n},${z})`);
   matron.exec(redraw);
+  render();
   postMessage(result(message));
 }
 
@@ -85,8 +92,9 @@ function handleEnc(message: Enc): void {
   }
 
   const { n, d } = message;
-  const redraw = appendRedraw(`enc(${n},${d})`);
+  const redraw = appendRedraw(`pcall(enc,${n},${d})`);
   matron.exec(redraw);
+  render();
   postMessage(result(message));
 }
 
@@ -96,7 +104,9 @@ function handleExecute(message: Execute): void {
     return;
   }
 
-  const redraw = appendRedraw(message.code);
+  const { code, shouldInit } = message;
+  const init = shouldInit ? appendInit(code) : code;
+  const redraw = appendRedraw(init);
   matron.exec(redraw);
   render();
   postMessage(result(message));

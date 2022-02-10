@@ -45,6 +45,7 @@ export interface Offscreen extends Message<typeof OFFSCREEN_TYPE> {
 export const EXECUTE_TYPE = "execute";
 export interface Execute extends Message<typeof EXECUTE_TYPE> {
   code: string;
+  shouldInit?: boolean;
 }
 
 export const INIT_TYPE = "init";

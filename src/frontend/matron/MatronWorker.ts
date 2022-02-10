@@ -54,8 +54,8 @@ export class MatronWorker {
     return this._send({ type: OFFSCREEN_TYPE, canvas }, [canvas as any]);
   }
 
-  execute(code: string): Promise<void> {
-    return this._send({ type: EXECUTE_TYPE, code });
+  execute(code: string, shouldInit?: boolean): Promise<void> {
+    return this._send({ type: EXECUTE_TYPE, code, shouldInit });
   }
 
   init(): Promise<void> {
