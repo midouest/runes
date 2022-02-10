@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "render/matron";
 import { MonacoEditor } from "render/monaco";
 
+import { NornsKey } from "./NornsKey";
 import { findSteppable } from "./findSteppable";
 
 const initialCode = `
@@ -198,13 +199,24 @@ export function ScratchPad(): JSX.Element {
 
   useEffect(() => execute(code, true), []);
 
+  const keyHandler = (n: number) => (isDown: boolean) => {
+    matron?.key(n, isDown);
+  };
+
   return (
     <FlexWrapper>
+      <div>
+        <NornsKey onChange={keyHandler(1)} />
+      </div>
       <MatronCanvas
         ref={canvasRef}
         width={SCREEN_WIDTH}
         height={SCREEN_HEIGHT}
       />
+      <div>
+        <NornsKey onChange={keyHandler(2)} />
+        <NornsKey onChange={keyHandler(3)} />
+      </div>
       <MonacoEditor
         initialValue={code}
         onCreate={handleCreate}
