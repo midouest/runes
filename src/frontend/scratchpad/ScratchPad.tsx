@@ -9,6 +9,18 @@ import { MonacoEditor } from "render/monaco";
 import { findSteppable } from "./findSteppable";
 
 const initialCode = `
+function init()
+  -- global variables
+end
+
+function key(n, z)
+  -- button callback
+end
+
+function enc(n, d)
+  -- encoder callback
+end
+
 function redraw()
   screen.clear()
 

@@ -1,7 +1,13 @@
 import { Matron } from "./Matron";
 import {
+  Enc,
+  ENC_TYPE,
   Execute,
   EXECUTE_TYPE,
+  Init,
+  INIT_TYPE,
+  Key,
+  KEY_TYPE,
   LOADING_TYPE,
   MatronWorkerMessage,
   Offscreen,
@@ -48,6 +54,42 @@ pcall(redraw)
 screen.restore()`;
 }
 
+function handleInit(message: Init): void {
+  if (matron === null) {
+    postMessage(result(message, "Matron is not loaded"));
+    return;
+  }
+
+  const redraw = appendRedraw("init()");
+  matron.exec(redraw);
+  postMessage(result(message));
+}
+
+function handleKey(message: Key): void {
+  if (matron === null) {
+    postMessage(result(message, "Matron is not loaded"));
+    return;
+  }
+
+  const { n, isDown } = message;
+  const z = Number(isDown);
+  const redraw = appendRedraw(`key(${n},${z})`);
+  matron.exec(redraw);
+  postMessage(result(message));
+}
+
+function handleEnc(message: Enc): void {
+  if (matron === null) {
+    postMessage(result(message, "Matron is not loaded"));
+    return;
+  }
+
+  const { n, d } = message;
+  const redraw = appendRedraw(`enc(${n},${d})`);
+  matron.exec(redraw);
+  postMessage(result(message));
+}
+
 function handleExecute(message: Execute): void {
   if (matron === null) {
     postMessage(result(message, "Matron is not loaded"));
@@ -87,6 +129,15 @@ onmessage = (event: MessageEvent<MatronWorkerMessage>) => {
 
     case EXECUTE_TYPE:
       return handleExecute(event.data);
+
+    case INIT_TYPE:
+      return handleInit(event.data);
+
+    case KEY_TYPE:
+      return handleKey(event.data);
+
+    case ENC_TYPE:
+      return handleEnc(event.data);
 
     case RESTART_TYPE:
       return handleRestart(event.data);

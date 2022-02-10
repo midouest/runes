@@ -1,6 +1,9 @@
 import {
+  ENC_TYPE,
   ERR_TYPE,
   EXECUTE_TYPE,
+  INIT_TYPE,
+  KEY_TYPE,
   LOADING_TYPE,
   MatronMainMessage,
   MatronWorkerMessage,
@@ -53,6 +56,18 @@ export class MatronWorker {
 
   execute(code: string): Promise<void> {
     return this._send({ type: EXECUTE_TYPE, code });
+  }
+
+  init(): Promise<void> {
+    return this._send({ type: INIT_TYPE });
+  }
+
+  key(n: number, isDown: boolean): Promise<void> {
+    return this._send({ type: KEY_TYPE, n, isDown });
+  }
+
+  enc(n: number, d: number): Promise<void> {
+    return this._send({ type: ENC_TYPE, n, d });
   }
 
   restart(): Promise<void> {
