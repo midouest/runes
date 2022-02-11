@@ -10,30 +10,35 @@ import { NornsEncoder } from "./NornsEncoder";
 import { NornsKey } from "./NornsKey";
 import { findSteppable } from "./findSteppable";
 
-const initialCode = `
+const initialCode = `-- DON'T set global variables here
+
 function init()
-  -- global variables
+  -- DO set global variables here
+  -- press the init buttons to reset variables
 end
 
 function key(n, z)
-  -- button callback
+  -- called when a key is pressed or released
 end
 
 function enc(n, d)
-  -- encoder callback
+  -- called when an encoder is turned
 end
 
 function redraw()
+  -- update screen on each change
   screen.clear()
 
+  -- change numeric value under cursor using:
+  -- option + cmd + right/left (+/-1)
+  -- option + cmd + shift + right/left (+/-10)
   screen.move(64, 34)
   screen.level(15)
   screen.text_center("Welcome to Runes!")
   screen.stroke()
 
   screen.update()
-end
-`;
+end`;
 
 const FlexWrapper = styled.div`
   display: flex;
