@@ -31,7 +31,7 @@ ipcMain.on("eval", (event, statement) => {
 const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 750,
+    height: 725,
     width: 575,
     show: false,
     resizable: false,
