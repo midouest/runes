@@ -28,7 +28,7 @@ export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
       const delta =
         Math.abs(event.movementX) > Math.abs(event.movementY)
           ? event.movementX
-          : event.movementY;
+          : -event.movementY;
       prevRotationRef.current = prevRotationRef.current + delta;
       setRotation(prevRotationRef.current);
       onChange && onChange(delta);
