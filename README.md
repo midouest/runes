@@ -11,6 +11,11 @@
 - CMake (3.22.1+)
 - Emscripten (3.1.1+)
 
+### Recommended Chrome Extensions
+
+- [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [C/C++ DevTools Support \(Dwarf\)](https://chrome.google.com/webstore/detail/cc%20%20-devtools-support-dwa/pdcpmagijalfljmkmjngeonclgbbannb)
+
 ### Setup
 
 Install/checkout dependencies:
