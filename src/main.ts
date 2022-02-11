@@ -31,9 +31,10 @@ ipcMain.on("eval", (event, statement) => {
 const createWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: 750,
+    width: 575,
     show: false,
+    resizable: false,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
