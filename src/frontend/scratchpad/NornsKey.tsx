@@ -13,8 +13,6 @@ const RoundButton = styled.button<RoundButtonProps>`
   border-radius: ${(props) => props.radius}px;
   text-decoration: none;
   background-color: lightgray;
-  margin: 2px;
-  padding: 2px;
 
   &:hover {
     background-color: whitesmoke;
