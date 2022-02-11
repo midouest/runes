@@ -11,6 +11,7 @@ import { NornsKey } from "./NornsKey";
 import { findSteppable } from "./findSteppable";
 
 const initialCode = `-- DON'T set global variables here
+-- norns libraries: screen, util
 
 function init()
   -- DO set global variables here
