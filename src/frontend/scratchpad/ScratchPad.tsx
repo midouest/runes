@@ -40,9 +40,22 @@ function redraw()
   screen.update()
 end`;
 
-const FlexWrapper = styled.div`
+const Column = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+interface SpacerProps {
+  size?: number;
+}
+
+const Spacer = styled.div<SpacerProps>`
+  flex: ${(props) => props.size ?? 1};
 `;
 
 const MatronCanvas = styled.canvas`
@@ -214,22 +227,27 @@ export function ScratchPad(): JSX.Element {
   };
 
   return (
-    <FlexWrapper>
-      <div>
+    <Column>
+      <Row>
+        <Spacer />
         <NornsKey onChange={keyHandler(1)} />
+        <Spacer size={0.05} />
         <NornsEncoder onChange={encHandler(1)} />
-      </div>
+      </Row>
       <MatronCanvas
         ref={canvasRef}
         width={SCREEN_WIDTH}
         height={SCREEN_HEIGHT}
       />
-      <div>
+      <Row>
         <NornsKey onChange={keyHandler(2)} />
+        <Spacer size={0.05} />
         <NornsKey onChange={keyHandler(3)} />
+        <Spacer />
         <NornsEncoder onChange={encHandler(2)} />
+        <Spacer size={0.05} />
         <NornsEncoder onChange={encHandler(3)} />
-      </div>
+      </Row>
       <MonacoEditor
         initialValue={code}
         onCreate={handleCreate}
@@ -237,6 +255,6 @@ export function ScratchPad(): JSX.Element {
         onPositionChange={handlePositionChange}
       />
       <button onClick={init}>Init</button>
-    </FlexWrapper>
+    </Column>
   );
 }
