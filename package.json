@@ -1,6 +1,5 @@
 {
   "name": "@runes/runes",
-  "homepage": "https://midouest.github.io/runes",
   "private": true,
   "description": "Norns vector graphics editor",
   "license": "GPL-3.0",

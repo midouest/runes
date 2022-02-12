@@ -1,5 +1,6 @@
 {
   "name": "@runes/web",
+  "homepage": "https://midouest.github.io/runes/",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
