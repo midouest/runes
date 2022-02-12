@@ -1,12 +1,10 @@
-import matronModuleFactory, { MatronEmscriptenModule } from "matron-wasm";
-import { noop } from "render/util/function";
+import matronModuleFactory, { MatronEmscriptenModule } from "@runes/matron";
+import { noop } from "../util/function";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import matronDataUrl from "../../../matron/build/matron.data";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import matronDataUrl from "@runes/matron/build/matron.data";
 // @ts-ignore
-import matronWasmUrl from "../../../matron/build/matron.wasm";
+import matronWasmUrl from "@runes/matron/build/matron.wasm";
 
 import { createMatronApi, MatronApi } from "./MatronApi";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";

@@ -1,0 +1,13 @@
+{
+  "name": "@runes/matron",
+  "version": "0.0.1",
+  "main": "build/matron.js",
+  "license": "GPL-3.0",
+  "scripts": {
+    "configure": "emcmake cmake -Bbuild -H.",
+    "build": "cmake --build build --target matron"
+  },
+  "devDependencies": {
+    "@types/emscripten": "^1.39.6"
+  }
+}

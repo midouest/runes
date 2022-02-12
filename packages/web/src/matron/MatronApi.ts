@@ -1,4 +1,4 @@
-import { MatronEmscriptenModule } from "matron-wasm";
+import { MatronEmscriptenModule } from "@runes/matron";
 
 export interface ConfigApi {
   init(): null;

@@ -3,8 +3,8 @@ import * as monaco from "monaco-editor";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "render/matron";
-import { MonacoEditor } from "render/monaco";
+import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "../matron";
+import { MonacoEditor } from "../monaco";
 
 import { NornsEncoder } from "./NornsEncoder";
 import { NornsKey } from "./NornsKey";
@@ -31,10 +31,11 @@ function redraw()
   screen.clear()
 
   -- change numeric value under cursor using:
-  -- option + cmd + right/left (+/-1)
-  -- option + cmd + shift + right/left (+/-10)
-  -- above bindings use alt + ctl on windows/linux
-  screen.move(64, 34)
+  -- ctl/cmd + alt/opt + equal (+1)
+  -- ctl/cmd + alt/opt + minus (-1)
+  -- ctl/cmd + alt/opt + shift + equal (+10)
+  -- ctl/cmd + alt/opt + shift + minus (-10)
+  screen.move(64, 32)
   screen.level(15)
   screen.text_center("Welcome to Runes!")
   screen.stroke()
@@ -93,7 +94,7 @@ export function ScratchPad(): JSX.Element {
       id: "incrementSelectedNumber",
       label: "Increment Selected Number",
       keybindings: [
-        monaco.KeyMod.Alt | monaco.KeyMod.CtrlCmd | monaco.KeyCode.RightArrow,
+        monaco.KeyMod.Alt | monaco.KeyMod.CtrlCmd | monaco.KeyCode.Equal,
       ],
       precondition: "isNumberSelected",
       run: (editor) => stepNumber(editor, 1),
@@ -106,7 +107,7 @@ export function ScratchPad(): JSX.Element {
         monaco.KeyMod.Shift |
           monaco.KeyMod.Alt |
           monaco.KeyMod.CtrlCmd |
-          monaco.KeyCode.RightArrow,
+          monaco.KeyCode.Equal,
       ],
       precondition: "isNumberSelected",
       run: (editor) => stepNumber(editor, 10),
@@ -116,7 +117,7 @@ export function ScratchPad(): JSX.Element {
       id: "decrementSelectedNumber",
       label: "Decrement Selected Number",
       keybindings: [
-        monaco.KeyMod.Alt | monaco.KeyMod.CtrlCmd | monaco.KeyCode.LeftArrow,
+        monaco.KeyMod.Alt | monaco.KeyMod.CtrlCmd | monaco.KeyCode.Minus,
       ],
       precondition: "isNumberSelected",
       run: (editor) => stepNumber(editor, -1),
@@ -129,7 +130,7 @@ export function ScratchPad(): JSX.Element {
         monaco.KeyMod.Shift |
           monaco.KeyMod.Alt |
           monaco.KeyMod.CtrlCmd |
-          monaco.KeyCode.LeftArrow,
+          monaco.KeyCode.Minus,
       ],
       precondition: "isNumberSelected",
       run: (editor) => stepNumber(editor, -10),
@@ -206,7 +207,6 @@ export function ScratchPad(): JSX.Element {
 
   const execute = (value: string, shouldInit?: boolean) => {
     matron?.execute(value, shouldInit);
-    runesApi.eval(value);
   };
 
   const init = () => {
