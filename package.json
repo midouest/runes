@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "predeploy": "yarn workspace @runes/web build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d packages/web/build"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3"
