@@ -1,3 +1,0 @@
-[submodule "matron/norns"]
-	path = packages/matron/norns
-	url = git@github.com:midouest/norns.git
