@@ -2,9 +2,9 @@ import matronModuleFactory, { MatronEmscriptenModule } from "@runes/matron";
 import { noop } from "../util/function";
 
 // @ts-ignore
-import matronDataUrl from "@runes/matron/build/matron.data";
+import matronDataUrl from "@runes/matron/dist/matron.data";
 // @ts-ignore
-import matronWasmUrl from "@runes/matron/build/matron.wasm";
+import matronWasmUrl from "@runes/matron/dist/matron.wasm";
 
 import { createMatronApi, MatronApi } from "./MatronApi";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";

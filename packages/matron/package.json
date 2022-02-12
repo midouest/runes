@@ -1,11 +1,12 @@
 {
   "name": "@runes/matron",
   "version": "0.0.1",
-  "main": "build/matron.js",
+  "main": "dist/matron.js",
   "license": "GPL-3.0",
   "scripts": {
     "configure": "emcmake cmake -Bbuild -H.",
-    "build": "cmake --build build --target matron"
+    "build": "cmake --build build --target matron",
+    "install": "mkdir dist && cp build/matron.* dist"
   },
   "devDependencies": {
     "@types/emscripten": "^1.39.6"

@@ -34,6 +34,7 @@ Compile Matron to WebAssembly:
 ```bash
 $ yarn workspace @runes/matron configure
 $ yarn workspace @runes/matron build
+$ yarn workspace @runes/matron install
 ```
 
 Start the development server:
