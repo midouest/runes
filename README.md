@@ -4,6 +4,9 @@
 
 ## Development
 
+Tested on macOS 12.1 and Ubuntu 20.04.3 LTS. Windows is not supported, but
+Ubuntu running in WSL2 works.
+
 ### Requirements
 
 - Node.js (14.18.2+)

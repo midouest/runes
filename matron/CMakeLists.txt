@@ -133,6 +133,7 @@ set(CAIRO_CONFIGURE_COMMAND
     "pixman_LIBS=-L${STATIC_LIB_DIR} -lpixman-1"
     "FREETYPE_CFLAGS=-I${INCLUDE_DIR}/freetype2"
     "FREETYPE_LIBS=-L${STATIC_LIB_DIR} -lfreetype"
+    "ax_cv_c_float_words_bigendian=no" # required for Ubuntu build
     --enable-shared=no
     --prefix=<INSTALL_DIR>)
 

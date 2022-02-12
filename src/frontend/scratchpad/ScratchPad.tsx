@@ -33,6 +33,7 @@ function redraw()
   -- change numeric value under cursor using:
   -- option + cmd + right/left (+/-1)
   -- option + cmd + shift + right/left (+/-10)
+  -- above bindings use alt + ctl on windows/linux
   screen.move(64, 34)
   screen.level(15)
   screen.text_center("Welcome to Runes!")
