@@ -6,9 +6,9 @@
 
 ### Requirements
 
-- Node.js (17.3.1+)
+- Node.js (14.18.2+)
 - Yarn (1.22.17+)
-- CMake (3.22.1+)
+- CMake (3.16.3+)
 - Emscripten (3.1.1+)
 
 ### Recommended Chrome Extensions
