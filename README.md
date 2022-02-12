@@ -1,5 +1,7 @@
 # runes
 
+Norns screen live-coding
+
 🚧 Work-in-progress 🚧
 
 ## Development

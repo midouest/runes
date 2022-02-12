@@ -1,7 +1,7 @@
 {
   "name": "@runes/runes",
   "private": true,
-  "description": "Norns vector graphics editor",
+  "description": "Norns screen live-coding",
   "license": "GPL-3.0",
   "workspaces": [
     "packages/*"
