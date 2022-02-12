@@ -79,8 +79,7 @@ export function ScratchPad(): JSX.Element {
       return;
     }
 
-    const offscreen = canvas.transferControlToOffscreen();
-    matron.transferCanvas(offscreen);
+    matron.setCanvas(canvas);
   }, []);
 
   const contextKeyRef = useRef<monaco.editor.IContextKey<

@@ -1,5 +1,4 @@
 import { createContext } from "react";
+import { MatronProcess } from "./MatronProcess";
 
-import { MatronWorker } from "./MatronWorker";
-
-export const Context = createContext<MatronWorker | null>(null);
+export const Context = createContext<MatronProcess | null>(null);

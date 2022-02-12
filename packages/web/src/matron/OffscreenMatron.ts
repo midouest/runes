@@ -1,3 +1,4 @@
+import { MatronProcess } from "./MatronProcess";
 import {
   ENC_TYPE,
   ERR_TYPE,
@@ -10,10 +11,10 @@ import {
   OFFSCREEN_TYPE,
   RESET_TYPE,
   RESTART_TYPE,
-} from "./MatronWorkerMessage";
+} from "./Message";
 
-export class MatronWorker {
-  static start(): Promise<MatronWorker> {
+export class OffscreenMatron implements MatronProcess {
+  static start(): Promise<OffscreenMatron> {
     return new Promise((resolve, reject) => {
       const onMessage = (event: MessageEvent<MatronMainMessage>) => {
         if (event.data.type === ERR_TYPE) {
@@ -26,7 +27,7 @@ export class MatronWorker {
         }
 
         worker.removeEventListener("message", onMessage);
-        const matronWorker = new MatronWorker(worker);
+        const matronWorker = new OffscreenMatron(worker);
         resolve(matronWorker);
       };
 
@@ -45,13 +46,16 @@ export class MatronWorker {
     private _messageTimeout = 2000
   ) {}
 
-  transferCanvas(canvas: OffscreenCanvas): Promise<void> {
+  setCanvas(canvas: HTMLCanvasElement): Promise<void> {
+    const offscreen = canvas.transferControlToOffscreen();
     // There appears to be a type-mismatch between @types/offscreencanvas and
     // Typescript's dom typings. Typescript thinks OffscreenCanvas does not
     // implement Transferrable. However, this is the expected usage according to
     // the OffscreenCanvas docs.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._send({ type: OFFSCREEN_TYPE, canvas }, [canvas as any]);
+    return this._send({ type: OFFSCREEN_TYPE, canvas: offscreen }, [
+      offscreen as any,
+    ]);
   }
 
   execute(code: string, shouldInit?: boolean): Promise<void> {

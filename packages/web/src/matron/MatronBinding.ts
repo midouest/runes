@@ -1,11 +1,11 @@
 import { MatronEmscriptenModule } from "@runes/matron";
 
-export interface ConfigApi {
+export interface ConfigBinding {
   init(): null;
   deinit(): null;
 }
 
-export interface WeaverApi {
+export interface WeaverBinding {
   init(): null;
   deinit(): null;
   startup(): null;
@@ -14,24 +14,26 @@ export interface WeaverApi {
   handleExecCodeLine(code: string): null;
 }
 
-export interface ScreenApi {
+export interface ScreenBinding {
   getData(): number;
   dirty(): boolean;
 }
 
-export interface MatronApi {
-  config: ConfigApi;
-  weaver: WeaverApi;
-  screen: ScreenApi;
+export interface MatronBinding {
+  config: ConfigBinding;
+  weaver: WeaverBinding;
+  screen: ScreenBinding;
 }
 
-export function createMatronApi(wasm: MatronEmscriptenModule): MatronApi {
-  const config: ConfigApi = {
+export function createMatronBinding(
+  wasm: MatronEmscriptenModule
+): MatronBinding {
+  const config: ConfigBinding = {
     init: wasm.cwrap("config_init", null, []),
     deinit: wasm.cwrap("config_deinit", null, []),
   };
 
-  const weaver: WeaverApi = {
+  const weaver: WeaverBinding = {
     init: wasm.cwrap("w_init", null, []),
     startup: wasm.cwrap("w_startup", null, []),
     reset: wasm.cwrap("w_reset_lvm", null, []),
@@ -40,7 +42,7 @@ export function createMatronApi(wasm: MatronEmscriptenModule): MatronApi {
     handleExecCodeLine: wasm.cwrap("w_handle_exec_code_line", null, ["string"]),
   };
 
-  const screen: ScreenApi = {
+  const screen: ScreenBinding = {
     getData: wasm.cwrap("screen_get_data", "number", []),
     dirty: wasm.cwrap("screen_dirty", "boolean", []),
   };

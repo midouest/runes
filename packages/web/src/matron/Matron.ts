@@ -6,7 +6,7 @@ import matronDataUrl from "@runes/matron/dist/matron.data";
 // @ts-ignore
 import matronWasmUrl from "@runes/matron/dist/matron.wasm";
 
-import { createMatronApi, MatronApi } from "./MatronApi";
+import { createMatronBinding, MatronBinding } from "./MatronBinding";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 
 const SCREEN_BYTES_PER_PIXEL = 4;
@@ -31,23 +31,26 @@ export class Matron {
       printErr: noop,
       locateFile,
     });
-    const api = createMatronApi(wasm);
-    return new Matron(wasm, api);
+    const binding = createMatronBinding(wasm);
+    return new Matron(wasm, binding);
   }
 
-  constructor(private _wasm: MatronEmscriptenModule, private _api: MatronApi) {
+  constructor(
+    private _wasm: MatronEmscriptenModule,
+    private _binding: MatronBinding
+  ) {
     this._init();
   }
 
   private _init(): void {
-    this._api.config.init();
-    this._api.weaver.init();
-    this._api.weaver.startup();
+    this._binding.config.init();
+    this._binding.weaver.init();
+    this._binding.weaver.startup();
   }
 
   deinit(): void {
-    this._api.weaver.deinit();
-    this._api.config.deinit();
+    this._binding.weaver.deinit();
+    this._binding.config.deinit();
   }
 
   restart(): void {
@@ -56,19 +59,19 @@ export class Matron {
   }
 
   reset(): void {
-    this._api.weaver.reset();
+    this._binding.weaver.reset();
   }
 
   exec(code: string): void {
-    this._api.weaver.runCode(code);
+    this._binding.weaver.runCode(code);
   }
 
   execLine(code: string): void {
-    this._api.weaver.handleExecCodeLine(code);
+    this._binding.weaver.handleExecCodeLine(code);
   }
 
   getScreen(): Uint8ClampedArray {
-    const ptr = this._api.screen.getData();
+    const ptr = this._binding.screen.getData();
     return new Uint8ClampedArray(
       this._wasm.HEAPU8.buffer,
       ptr,
@@ -77,6 +80,6 @@ export class Matron {
   }
 
   isDirty(): boolean {
-    return this._api.screen.dirty();
+    return this._binding.screen.dirty();
   }
 }

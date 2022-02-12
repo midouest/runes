@@ -1,3 +1,7 @@
+import { enc } from "./enc";
+import { execute } from "./execute";
+import { init } from "./init";
+import { key } from "./key";
 import { Matron } from "./Matron";
 import {
   Enc,
@@ -17,25 +21,10 @@ import {
   Restart,
   RESTART_TYPE,
   result,
-} from "./MatronWorkerMessage";
+} from "./Message";
 
 let matron: Matron | null = null;
 let canvas: OffscreenCanvas | null = null;
-
-function render(): void {
-  if (matron === null || canvas === null) {
-    return;
-  }
-
-  const context = canvas.getContext("2d");
-  if (context === null || !matron.isDirty()) {
-    return;
-  }
-
-  const screen = matron.getScreen();
-  const data = new ImageData(screen, 128, 64);
-  context.putImageData(data, 0, 0);
-}
 
 function handleTransferCanvas(message: Offscreen): void {
   if (canvas !== null) {
@@ -47,27 +36,18 @@ function handleTransferCanvas(message: Offscreen): void {
   postMessage(result(message));
 }
 
-function appendInit(code: string): string {
-  return `${code}
-pcall(init)`;
-}
-
-function appendRedraw(code: string): string {
-  return `${code}
-screen.save()
-pcall(redraw)
-screen.restore()`;
-}
-
 function handleInit(message: Init): void {
   if (matron === null) {
     postMessage(result(message, "Matron is not loaded"));
     return;
   }
 
-  const redraw = appendRedraw(appendInit(""));
-  matron.exec(redraw);
-  render();
+  if (canvas === null) {
+    postMessage(result(message, "Canvas was not transferred"));
+    return;
+  }
+
+  init(matron, canvas);
   postMessage(result(message));
 }
 
@@ -77,11 +57,13 @@ function handleKey(message: Key): void {
     return;
   }
 
+  if (canvas === null) {
+    postMessage(result(message, "Canvas was not transferred"));
+    return;
+  }
+
   const { n, isDown } = message;
-  const z = Number(isDown);
-  const redraw = appendRedraw(`pcall(key,${n},${z})`);
-  matron.exec(redraw);
-  render();
+  key(matron, canvas, n, isDown);
   postMessage(result(message));
 }
 
@@ -91,10 +73,13 @@ function handleEnc(message: Enc): void {
     return;
   }
 
+  if (canvas === null) {
+    postMessage(result(message, "Canvas was not transferred"));
+    return;
+  }
+
   const { n, d } = message;
-  const redraw = appendRedraw(`pcall(enc,${n},${d})`);
-  matron.exec(redraw);
-  render();
+  enc(matron, canvas, n, d);
   postMessage(result(message));
 }
 
@@ -104,11 +89,13 @@ function handleExecute(message: Execute): void {
     return;
   }
 
+  if (canvas === null) {
+    postMessage(result(message, "Canvas was not transferred"));
+    return;
+  }
+
   const { code, shouldInit } = message;
-  const init = shouldInit ? appendInit(code) : code;
-  const redraw = appendRedraw(init);
-  matron.exec(redraw);
-  render();
+  execute(matron, canvas, code, shouldInit);
   postMessage(result(message));
 }
 

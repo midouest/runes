@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
 
 import { Context } from "./Context";
-import { MatronWorker } from "./MatronWorker";
+import { MatronProcess } from "./MatronProcess";
 
 export interface ProviderProps {
-  matron: MatronWorker | null;
+  matron: MatronProcess | null;
   children: ReactNode;
 }
 
