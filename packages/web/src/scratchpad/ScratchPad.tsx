@@ -1,6 +1,6 @@
 import * as luaparse from "luaparse";
 import * as monaco from "monaco-editor";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "../matron";

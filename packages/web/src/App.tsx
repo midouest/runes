@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Provider, useStartMatronProcess } from "./matron";
 import { ScratchPad } from "./scratchpad";
 
