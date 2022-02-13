@@ -4,3 +4,4 @@ export { useMatron } from "./useMatron";
 export { OffscreenMatron as MatronWorker } from "./OffscreenMatron";
 export { useStartMatronProcess } from "./useStartMatronProcess";
 export { SCREEN_WIDTH, SCREEN_HEIGHT } from "./constants";
+export { RemoteMatron } from "./RemoteMatron";
