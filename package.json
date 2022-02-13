@@ -8,7 +8,10 @@
   ],
   "scripts": {
     "predeploy": "yarn workspace @runes/web build",
-    "deploy": "gh-pages -d packages/web/build"
+    "deploy": "gh-pages -d packages/web/build",
+    "configure": "yarn workspace @runes/matron configure",
+    "build": "yarn workspace @runes/matron build",
+    "start": "yarn workspace @runes/web start"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3"

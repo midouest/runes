@@ -5,19 +5,8 @@
       "type": "npm",
       "script": "start",
       "problemMatcher": [],
-      "label": "npm: start",
-      "detail": "yarn start",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "type": "npm",
-      "script": "build-matron",
-      "problemMatcher": [],
-      "label": "npm: build-matron",
-      "detail": "yarn build-matron",
+      "label": "Start",
+      "detail": "Start webpack dev server",
       "group": {
         "kind": "build",
         "isDefault": true
