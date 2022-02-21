@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
+import { sign } from "../util/math";
 
 const StyledSvg = styled.svg`
   width: 48px;
@@ -31,7 +32,7 @@ export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
           : -event.movementY;
       prevRotationRef.current = prevRotationRef.current + delta;
       setRotation(prevRotationRef.current);
-      onChange && onChange(delta);
+      onChange && onChange(sign(delta));
     },
     [onChange]
   );
