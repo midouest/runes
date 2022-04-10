@@ -2,9 +2,9 @@
 
 Norns screen live-coding
 
-[Live Demo](https://midouest.github.io/runes/)
-
 🚧 Work-in-progress 🚧
+
+[Live Demo](https://midouest.github.io/runes/)
 
 ## Development
 
@@ -36,18 +36,13 @@ $ yarn install
 Compile Matron to WebAssembly:
 
 ```bash
-$ yarn configure-matron
-$ yarn build-matron
+$ yarn workspace @runes/matron configure
+$ yarn workspace @runes/matron build
+$ yarn workspace @runes/matron install
 ```
 
 Start the development server:
 
 ```bash
-$ yarn start
-```
-
-Build a standalone executable:
-
-```bash
-$ yarn make
+$ yarn workspace @runes/web start
 ```
