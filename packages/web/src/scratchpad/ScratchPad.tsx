@@ -1,7 +1,6 @@
 import * as luaparse from "luaparse";
 import * as monaco from "monaco-editor";
 import { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
 
 import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "../matron";
 import { MonacoEditor } from "../monaco";
@@ -10,31 +9,7 @@ import { NornsEncoder } from "./NornsEncoder";
 import { NornsKey } from "./NornsKey";
 import { findSteppable } from "./findSteppable";
 import { initialCode } from "./initialCode";
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-interface SpacerProps {
-  size?: number;
-}
-
-const Spacer = styled.div<SpacerProps>`
-  flex: ${(props) => props.size ?? 1};
-`;
-
-const MatronCanvas = styled.canvas`
-  background: black;
-  width: 512px;
-  height: 256px;
-  image-rendering: pixelated;
-`;
+import { Column, Row, Spacer, MatronCanvas } from "./ScratchPad.styles";
 
 export function ScratchPad(): JSX.Element {
   const matron = useMatron();
