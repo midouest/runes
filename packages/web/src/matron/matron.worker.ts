@@ -26,6 +26,22 @@ import {
 let matron: Matron | null = null;
 let canvas: OffscreenCanvas | null = null;
 
+const fps = 15;
+const oneSec = 1000;
+let prevTimestamp = 0;
+
+function render(timestamp: number): void {
+  if (matron && canvas) {
+    execute(matron, canvas, "");
+  }
+  const dt = timestamp - prevTimestamp;
+  prevTimestamp = timestamp;
+
+  const remainingDt = oneSec / fps - dt;
+  const timeout = Math.max(remainingDt, 0);
+  setTimeout(() => requestAnimationFrame(render), timeout);
+}
+
 function handleTransferCanvas(message: Offscreen): void {
   if (canvas !== null) {
     postMessage(result(message, "Canvas has already been transferred"));
@@ -34,6 +50,8 @@ function handleTransferCanvas(message: Offscreen): void {
 
   canvas = message.canvas;
   postMessage(result(message));
+
+  requestAnimationFrame(render);
 }
 
 function handleInit(message: Init): void {
