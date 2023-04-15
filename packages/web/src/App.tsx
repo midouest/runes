@@ -5,7 +5,7 @@ export function App(): JSX.Element {
   const matron = useStartMatronProcess();
 
   return (
-    <div>
+    <>
       {matron === null ? (
         "Starting Matron..."
       ) : (
@@ -13,6 +13,6 @@ export function App(): JSX.Element {
           <ScratchPad />
         </Provider>
       )}
-    </div>
+    </>
   );
 }
