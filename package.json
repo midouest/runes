@@ -11,6 +11,7 @@
     "deploy": "gh-pages -d packages/web/build",
     "configure": "yarn workspace @runes/matron configure",
     "build": "yarn workspace @runes/matron build",
+    "clean": "yarn workspace @runes/matron clean",
     "start": "yarn workspace @runes/web start"
   },
   "devDependencies": {
