@@ -31,7 +31,6 @@ Install/checkout dependencies:
 ```bash
 $ git submodule init
 $ git submodule update
-$ yarn install
 ```
 
 Compile Matron to WebAssembly:
@@ -39,11 +38,11 @@ Compile Matron to WebAssembly:
 ```bash
 $ yarn configure
 $ yarn build
-$ yarn install
 ```
 
 Start the development server:
 
 ```bash
+$ yarn install
 $ yarn start
 ```
