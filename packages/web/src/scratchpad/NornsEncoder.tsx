@@ -1,4 +1,9 @@
-import { useCallback, useRef, useState } from "react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  MouseEvent as ReactMouseEvent,
+} from "react";
 import styled from "styled-components";
 import { sign } from "../util/math";
 
@@ -37,12 +42,17 @@ export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
     [onChange]
   );
 
-  const handleMouseUp = useCallback(() => {
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-  }, [handleMouseMove]);
+  const handleMouseUp = useCallback(
+    (event: MouseEvent) => {
+      event.preventDefault();
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    },
+    [handleMouseMove]
+  );
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (event: ReactMouseEvent) => {
+    event.preventDefault();
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
@@ -51,6 +61,7 @@ export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
     <StyledSvg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <circle cx="50" cy="50" r="50" onMouseDown={handleMouseDown} />
       <line
+        pointerEvents="none"
         x1="50"
         y1="50"
         x2="50"
