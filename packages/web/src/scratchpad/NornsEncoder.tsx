@@ -40,7 +40,7 @@ export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
   const handleMouseUp = useCallback(() => {
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
-  }, [onChange]);
+  }, [handleMouseMove]);
 
   const handleMouseDown = () => {
     document.addEventListener("mousemove", handleMouseMove);

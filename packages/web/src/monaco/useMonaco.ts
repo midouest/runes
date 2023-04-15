@@ -18,6 +18,7 @@ export function useMonaco(
       language: "lua",
     });
     setEditor(editor);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return [editor, setEditorCallback];

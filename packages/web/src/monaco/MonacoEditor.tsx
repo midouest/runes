@@ -58,6 +58,7 @@ export function MonacoEditor({
         disposable.dispose();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor]);
 
   return <Container ref={setEditorCallback}></Container>;

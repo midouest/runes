@@ -80,6 +80,7 @@ export function ScratchPad(): JSX.Element {
     }
 
     matron.setCanvas(canvas);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const contextKeyRef = useRef<monaco.editor.IContextKey<
@@ -217,6 +218,7 @@ export function ScratchPad(): JSX.Element {
     setCode(value);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => execute(code, true), []);
 
   const keyHandler = (n: number) => (isDown: boolean) => {

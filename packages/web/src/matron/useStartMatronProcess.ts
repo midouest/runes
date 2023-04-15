@@ -31,6 +31,7 @@ export function useStartMatronProcess(): MatronProcess | null {
     });
 
     return () => state?.shutdown();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state;
