@@ -285,7 +285,7 @@ export function ScratchPad(): JSX.Element {
           </button>
           <Spacer />
           <button onClick={init} title="Call the init function">
-            Init Script
+            Init
           </button>
         </Row>
         <MonacoEditor
