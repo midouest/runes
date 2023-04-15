@@ -1,9 +1,12 @@
+import { Animator } from "./Animator";
 import { enc } from "./enc";
 import { execute } from "./execute";
 import { init } from "./init";
 import { key } from "./key";
 import { Matron } from "./Matron";
 import {
+  Animate,
+  ANIMATE_TYPE,
   Enc,
   ENC_TYPE,
   Execute,
@@ -25,22 +28,7 @@ import {
 
 let matron: Matron | null = null;
 let canvas: OffscreenCanvas | null = null;
-
-const fps = 15;
-const oneSec = 1000;
-let prevTimestamp = 0;
-
-function render(timestamp: number): void {
-  if (matron && canvas) {
-    execute(matron, canvas, "");
-  }
-  const dt = timestamp - prevTimestamp;
-  prevTimestamp = timestamp;
-
-  const remainingDt = oneSec / fps - dt;
-  const timeout = Math.max(remainingDt, 0);
-  setTimeout(() => requestAnimationFrame(render), timeout);
-}
+let animator: Animator<OffscreenCanvas> | null = null;
 
 function handleTransferCanvas(message: Offscreen): void {
   if (canvas !== null) {
@@ -50,8 +38,6 @@ function handleTransferCanvas(message: Offscreen): void {
 
   canvas = message.canvas;
   postMessage(result(message));
-
-  requestAnimationFrame(render);
 }
 
 function handleInit(message: Init): void {
@@ -137,6 +123,23 @@ function handleReset(message: Reset): void {
   postMessage(result(message));
 }
 
+function handleAnimate(message: Animate): void {
+  if (!(matron && canvas)) {
+    postMessage(result(message, "Matron is not loaded"));
+    return;
+  }
+
+  const { enabled } = message;
+  if (!enabled) {
+    animator?.stop();
+  } else {
+    animator = animator ?? new Animator(matron, canvas);
+    animator.start();
+  }
+
+  postMessage(result(message));
+}
+
 onmessage = (event: MessageEvent<MatronWorkerMessage>) => {
   switch (event.data.type) {
     case OFFSCREEN_TYPE:
@@ -159,6 +162,9 @@ onmessage = (event: MessageEvent<MatronWorkerMessage>) => {
 
     case RESET_TYPE:
       return handleReset(event.data);
+
+    case ANIMATE_TYPE:
+      return handleAnimate(event.data);
   }
 };
 

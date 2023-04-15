@@ -1,6 +1,6 @@
 import * as luaparse from "luaparse";
 import * as monaco from "monaco-editor";
-import { useCallback, useEffect, useRef } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef } from "react";
 
 import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "../matron";
 import { MonacoEditor } from "../monaco";
@@ -212,6 +212,11 @@ export function ScratchPad(): JSX.Element {
     [matron]
   );
 
+  const handleAnimateChanged = (event: ChangeEvent) => {
+    const enabled = (event.target as HTMLInputElement).checked;
+    matron?.animate(enabled);
+  };
+
   return (
     <Container>
       <Column style={{ maxWidth: "512px", minWidth: "512px" }}>
@@ -238,6 +243,14 @@ export function ScratchPad(): JSX.Element {
       </Column>
       <Column style={{ flex: 1, maxWidth: "512px", minWidth: "512px" }}>
         <Row>
+          <div>
+            <input
+              id="animate"
+              type="checkbox"
+              onChange={handleAnimateChanged}
+            />
+            <label htmlFor="animate">Animate</label>
+          </div>
           <Spacer />
           <button onClick={init} style={{ marginRight: "4px" }}>
             Init Script

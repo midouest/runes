@@ -5,7 +5,7 @@ import { Canvas2dContext, render2dContext } from "./render2dContext";
 export function execute<T extends Canvas2dContext>(
   matron: Matron,
   canvas: T,
-  code: string,
+  code: string = "",
   shouldInit?: boolean
 ): void {
   const init = shouldInit ? appendInit(code) : code;

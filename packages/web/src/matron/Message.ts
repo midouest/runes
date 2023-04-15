@@ -69,6 +69,11 @@ export type Restart = Message<typeof RESTART_TYPE>;
 export const RESET_TYPE = "reset";
 export type Reset = Message<typeof RESET_TYPE>;
 
+export const ANIMATE_TYPE = "animate";
+export interface Animate extends Message<typeof ANIMATE_TYPE> {
+  enabled: boolean;
+}
+
 export type MatronMainMessage = Result;
 
 export type MatronWorkerMessage =
@@ -78,4 +83,5 @@ export type MatronWorkerMessage =
   | Key
   | Enc
   | Restart
-  | Reset;
+  | Reset
+  | Animate;

@@ -4,5 +4,6 @@ export interface MatronProcess {
   init(): Promise<void>;
   key(n: number, isDown: boolean): Promise<void>;
   enc(n: number, d: number): Promise<void>;
+  animate(enabled: boolean): Promise<void>;
   shutdown(): void;
 }

@@ -1,5 +1,6 @@
 import { MatronProcess } from "./MatronProcess";
 import {
+  ANIMATE_TYPE,
   ENC_TYPE,
   ERR_TYPE,
   EXECUTE_TYPE,
@@ -80,6 +81,10 @@ export class OffscreenMatron implements MatronProcess {
 
   reset(): Promise<void> {
     return this._send({ type: RESET_TYPE });
+  }
+
+  animate(enabled: boolean): Promise<void> {
+    return this._send({ type: ANIMATE_TYPE, enabled });
   }
 
   shutdown(): void {

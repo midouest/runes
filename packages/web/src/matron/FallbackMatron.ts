@@ -1,3 +1,4 @@
+import { Animator } from "./Animator";
 import { enc } from "./enc";
 import { execute } from "./execute";
 import { init } from "./init";
@@ -12,6 +13,7 @@ export class FallbackMatron implements MatronProcess {
   }
 
   private _canvas: HTMLCanvasElement | null = null;
+  private _animator: Animator<HTMLCanvasElement> | null = null;
 
   private constructor(private _matron: Matron) {}
 
@@ -54,6 +56,22 @@ export class FallbackMatron implements MatronProcess {
 
     enc(this._matron, this._canvas, n, d);
     return Promise.resolve();
+  }
+
+  animate(enabled: boolean): Promise<void> {
+    const resolved = Promise.resolve();
+    if (!this._canvas) {
+      return resolved;
+    }
+
+    if (!enabled) {
+      this._animator?.stop();
+      return resolved;
+    }
+
+    this._animator = this._animator ?? new Animator(this._matron, this._canvas);
+    this._animator.start();
+    return resolved;
   }
 
   shutdown(): void {
