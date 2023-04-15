@@ -17,6 +17,7 @@ Ubuntu running in WSL2 works.
 - Yarn (1.22.17+)
 - CMake (3.16.3+)
 - Emscripten (3.1.1+)
+- pkg-config (0.29.2+)
 
 ### Recommended Chrome Extensions
 
