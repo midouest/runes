@@ -46,3 +46,11 @@ Start the development server:
 $ yarn install
 $ yarn start
 ```
+
+### Deploy
+
+Deploy via GitHub Pages:
+
+```bash
+$ yarn deploy
+```
