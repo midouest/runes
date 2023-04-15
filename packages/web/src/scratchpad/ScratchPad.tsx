@@ -158,7 +158,7 @@ export function ScratchPad(): JSX.Element {
     }
   };
 
-  const execute = (value: string) => {
+  const execute = (value: string = "") => {
     matron?.execute(value, shouldInitRef.current);
     shouldInitRef.current = false;
   };
@@ -217,6 +217,14 @@ export function ScratchPad(): JSX.Element {
     matron?.animate(enabled);
   };
 
+  const handleRestart = () => {
+    matron?.restart().then(() => execute());
+  };
+
+  const handleReset = () => {
+    matron?.reset().then(() => execute());
+  };
+
   return (
     <Container>
       <Column style={{ maxWidth: "512px", minWidth: "512px" }}>
@@ -256,17 +264,28 @@ export function ScratchPad(): JSX.Element {
           </div>
           <Spacer />
           <button
-            onClick={init}
             style={{ marginRight: "4px" }}
-            title="Call the init function"
-          >
-            Init Script
-          </button>
-          <button
             onClick={confirmResetEditor}
             title="Restore the default script"
           >
             Reset Editor
+          </button>
+          <button
+            style={{ marginRight: "4px" }}
+            onClick={handleReset}
+            title="Reset Weaver Lua VM"
+          >
+            Reset Lua
+          </button>
+          <button
+            onClick={handleRestart}
+            title="Shutdown and reinitialize Matron"
+          >
+            Restart Matron
+          </button>
+          <Spacer />
+          <button onClick={init} title="Call the init function">
+            Init Script
           </button>
         </Row>
         <MonacoEditor

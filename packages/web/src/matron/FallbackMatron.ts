@@ -74,6 +74,16 @@ export class FallbackMatron implements MatronProcess {
     return resolved;
   }
 
+  restart(): Promise<void> {
+    this._matron.restart();
+    return Promise.resolve();
+  }
+
+  reset(): Promise<void> {
+    this._matron.reset();
+    return Promise.resolve();
+  }
+
   shutdown(): void {
     this._matron.deinit();
   }
