@@ -26,10 +26,14 @@ const StyledSvg = styled.svg<{ dragging?: boolean }>`
 `;
 
 interface NornsEncoderProps {
+  encId: number;
   onChange?: (delta: number) => void;
 }
 
-export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
+export function NornsEncoder({
+  encId,
+  onChange,
+}: NornsEncoderProps): JSX.Element {
   const [dragging, setDragging] = useState(false);
   const [rotation, setRotation] = useState(0);
   const prevRotationRef = useRef(0);
@@ -73,6 +77,7 @@ export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
       xmlns="http://www.w3.org/2000/svg"
       dragging={dragging}
     >
+      <title>Encoder {encId}</title>
       <circle cx="50" cy="50" r="50" onMouseDown={handleMouseDown} />
       <line
         pointerEvents="none"

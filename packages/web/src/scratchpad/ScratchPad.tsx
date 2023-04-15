@@ -222,9 +222,9 @@ export function ScratchPad(): JSX.Element {
       <Column style={{ maxWidth: "512px", minWidth: "512px" }}>
         <Row>
           <Spacer />
-          <NornsKey onChange={keyHandler(1)} />
+          <NornsKey keyId={1} onChange={keyHandler(1)} />
           <Spacer size={0.05} />
-          <NornsEncoder onChange={handleEnc1} />
+          <NornsEncoder encId={1} onChange={handleEnc1} />
         </Row>
         <MatronCanvas
           ref={canvasRef}
@@ -232,13 +232,13 @@ export function ScratchPad(): JSX.Element {
           height={SCREEN_HEIGHT}
         />
         <Row>
-          <NornsKey onChange={keyHandler(2)} />
+          <NornsKey keyId={2} onChange={keyHandler(2)} />
           <Spacer size={0.05} />
-          <NornsKey onChange={keyHandler(3)} />
+          <NornsKey keyId={3} onChange={keyHandler(3)} />
           <Spacer />
-          <NornsEncoder onChange={handleEnc2} />
+          <NornsEncoder encId={2} onChange={handleEnc2} />
           <Spacer size={0.05} />
-          <NornsEncoder onChange={handleEnc3} />
+          <NornsEncoder encId={3} onChange={handleEnc3} />
         </Row>
       </Column>
       <Column style={{ flex: 1, maxWidth: "512px", minWidth: "512px" }}>
@@ -264,7 +264,7 @@ export function ScratchPad(): JSX.Element {
           </button>
           <button
             onClick={confirmResetEditor}
-            title="Restore the editor state to the default script"
+            title="Restore the default script"
           >
             Reset Editor
           </button>

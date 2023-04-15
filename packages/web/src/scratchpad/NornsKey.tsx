@@ -24,10 +24,11 @@ const RoundButton = styled.button<RoundButtonProps>`
 `;
 
 export interface NornsKeyProps {
+  keyId: number;
   onChange?: (isDown: boolean) => void;
 }
 
-export function NornsKey({ onChange }: NornsKeyProps): JSX.Element {
+export function NornsKey({ keyId, onChange }: NornsKeyProps): JSX.Element {
   const handleMouseUp = useCallback(() => {
     onChange && onChange(false);
     document.removeEventListener("mouseup", handleMouseUp);
@@ -38,5 +39,11 @@ export function NornsKey({ onChange }: NornsKeyProps): JSX.Element {
     document.addEventListener("mouseup", handleMouseUp);
   };
 
-  return <RoundButton radius={24} onMouseDown={handleMouseDown} />;
+  return (
+    <RoundButton
+      radius={24}
+      onMouseDown={handleMouseDown}
+      title={`Key ${keyId}`}
+    />
+  );
 }
