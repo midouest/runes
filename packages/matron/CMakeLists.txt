@@ -30,7 +30,7 @@ set(Z_STATIC_LIB ${STATIC_LIB_DIR}/libz.a)
 
 ExternalProject_Add(
     libz
-    URL https://zlib.net/zlib-1.2.11.tar.gz
+    URL https://zlib.net/zlib-1.2.13.tar.gz
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/lib/zlib
     INSTALL_DIR ${DIST_DIR}
     CMAKE_COMMAND emcmake ${CMAKE_COMMAND}
