@@ -1,6 +1,6 @@
 import * as luaparse from "luaparse";
 import * as monaco from "monaco-editor";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "../matron";
 import { MonacoEditor } from "../monaco";
@@ -8,7 +8,13 @@ import { MonacoEditor } from "../monaco";
 import { NornsEncoder } from "./NornsEncoder";
 import { NornsKey } from "./NornsKey";
 import { findSteppable } from "./findSteppable";
-import { Column, Row, Spacer, MatronCanvas } from "./ScratchPad.styles";
+import {
+  Column,
+  Row,
+  Spacer,
+  MatronCanvas,
+  Container,
+} from "./ScratchPad.styles";
 import { useCode } from "./useCode";
 import { MonacoEditor as MonacoEditorInternal } from "../monaco/useMonaco";
 import { initialCode } from "./initialCode";
@@ -185,41 +191,67 @@ export function ScratchPad(): JSX.Element {
     matron?.key(n, isDown);
   };
 
-  const encHandler = (n: number) => (delta: number) => {
-    matron?.enc(n, delta);
-  };
+  const handleEnc1 = useCallback(
+    (delta: number) => {
+      matron?.enc(1, delta);
+    },
+    [matron]
+  );
+
+  const handleEnc2 = useCallback(
+    (delta: number) => {
+      matron?.enc(2, delta);
+    },
+    [matron]
+  );
+
+  const handleEnc3 = useCallback(
+    (delta: number) => {
+      matron?.enc(3, delta);
+    },
+    [matron]
+  );
 
   return (
-    <Column>
-      <Row>
-        <Spacer />
-        <NornsKey onChange={keyHandler(1)} />
-        <Spacer size={0.05} />
-        <NornsEncoder onChange={encHandler(1)} />
-      </Row>
-      <MatronCanvas
-        ref={canvasRef}
-        width={SCREEN_WIDTH}
-        height={SCREEN_HEIGHT}
-      />
-      <Row>
-        <NornsKey onChange={keyHandler(2)} />
-        <Spacer size={0.05} />
-        <NornsKey onChange={keyHandler(3)} />
-        <Spacer />
-        <NornsEncoder onChange={encHandler(2)} />
-        <Spacer size={0.05} />
-        <NornsEncoder onChange={encHandler(3)} />
-      </Row>
-      <MonacoEditor
-        ref={editorRef}
-        initialValue={code}
-        onCreate={handleCreate}
-        onContentChange={updateCode}
-        onPositionChange={handlePositionChange}
-      />
-      <button onClick={init}>Init Script</button>
-      <button onClick={confirmResetEditor}>Reset Editor</button>
-    </Column>
+    <Container>
+      <Column style={{ maxWidth: "512px", minWidth: "512px" }}>
+        <Row>
+          <Spacer />
+          <NornsKey onChange={keyHandler(1)} />
+          <Spacer size={0.05} />
+          <NornsEncoder onChange={handleEnc1} />
+        </Row>
+        <MatronCanvas
+          ref={canvasRef}
+          width={SCREEN_WIDTH}
+          height={SCREEN_HEIGHT}
+        />
+        <Row>
+          <NornsKey onChange={keyHandler(2)} />
+          <Spacer size={0.05} />
+          <NornsKey onChange={keyHandler(3)} />
+          <Spacer />
+          <NornsEncoder onChange={handleEnc2} />
+          <Spacer size={0.05} />
+          <NornsEncoder onChange={handleEnc3} />
+        </Row>
+      </Column>
+      <Column style={{ flex: 1, maxWidth: "512px", minWidth: "512px" }}>
+        <Row>
+          <Spacer />
+          <button onClick={init} style={{ marginRight: "4px" }}>
+            Init Script
+          </button>
+          <button onClick={confirmResetEditor}>Reset Editor</button>
+        </Row>
+        <MonacoEditor
+          ref={editorRef}
+          initialValue={code}
+          onCreate={handleCreate}
+          onContentChange={updateCode}
+          onPositionChange={handlePositionChange}
+        />
+      </Column>
+    </Container>
   );
 }

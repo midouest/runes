@@ -16,6 +16,7 @@ export function useMonaco(
     const editor = monaco.editor.create(element, {
       value: initialValue,
       language: "lua",
+      automaticLayout: true,
     });
     setEditor(editor);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -15,11 +15,11 @@ const RoundButton = styled.button<RoundButtonProps>`
   background-color: lightgray;
 
   &:hover {
-    background-color: whitesmoke;
+    background-color: gainsboro;
   }
 
   &:active {
-    background-color: gray;
+    background-color: silver;
   }
 `;
 

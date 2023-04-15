@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+`;
+
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
@@ -8,6 +14,7 @@ export const Column = styled.div`
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 4px 0;
 `;
 
 interface SpacerProps {

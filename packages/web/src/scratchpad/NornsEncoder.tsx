@@ -7,12 +7,16 @@ import {
 import styled from "styled-components";
 import { sign } from "../util/math";
 
-const StyledSvg = styled.svg`
+const StyledSvg = styled.svg<{ dragging?: boolean }>`
   width: 48px;
   height: 48px;
 
   circle {
-    fill: lightgray;
+    fill: ${({ dragging }) => (dragging ? "silver" : "lightgray")};
+
+    &:hover {
+      fill: ${({ dragging }) => (dragging ? "silver" : "gainsboro")};
+    }
   }
 
   line {
@@ -26,6 +30,7 @@ interface NornsEncoderProps {
 }
 
 export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
+  const [dragging, setDragging] = useState(false);
   const [rotation, setRotation] = useState(0);
   const prevRotationRef = useRef(0);
 
@@ -47,18 +52,27 @@ export function NornsEncoder({ onChange }: NornsEncoderProps): JSX.Element {
       event.preventDefault();
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
+      setDragging(false);
     },
     [handleMouseMove]
   );
 
-  const handleMouseDown = (event: ReactMouseEvent) => {
-    event.preventDefault();
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-  };
+  const handleMouseDown = useCallback(
+    (event: ReactMouseEvent) => {
+      event.preventDefault();
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      setDragging(true);
+    },
+    [handleMouseMove, handleMouseUp]
+  );
 
   return (
-    <StyledSvg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <StyledSvg
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+      dragging={dragging}
+    >
       <circle cx="50" cy="50" r="50" onMouseDown={handleMouseDown} />
       <line
         pointerEvents="none"
