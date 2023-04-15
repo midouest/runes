@@ -37,13 +37,13 @@ $ yarn install
 Compile Matron to WebAssembly:
 
 ```bash
-$ yarn workspace @runes/matron configure
-$ yarn workspace @runes/matron build
-$ yarn workspace @runes/matron install
+$ yarn configure
+$ yarn build
+$ yarn install
 ```
 
 Start the development server:
 
 ```bash
-$ yarn workspace @runes/web start
+$ yarn start
 ```
