@@ -248,14 +248,26 @@ export function ScratchPad(): JSX.Element {
               id="animate"
               type="checkbox"
               onChange={handleAnimateChanged}
+              title="Automatically re-render at 15fps"
             />
-            <label htmlFor="animate">Animate</label>
+            <label htmlFor="animate" title="Automatically re-render at 15fps">
+              Animate
+            </label>
           </div>
           <Spacer />
-          <button onClick={init} style={{ marginRight: "4px" }}>
+          <button
+            onClick={init}
+            style={{ marginRight: "4px" }}
+            title="Call the init function"
+          >
             Init Script
           </button>
-          <button onClick={confirmResetEditor}>Reset Editor</button>
+          <button
+            onClick={confirmResetEditor}
+            title="Restore the editor state to the default script"
+          >
+            Reset Editor
+          </button>
         </Row>
         <MonacoEditor
           ref={editorRef}
