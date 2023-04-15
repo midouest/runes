@@ -1,6 +1,6 @@
 import * as luaparse from "luaparse";
 import * as monaco from "monaco-editor";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { SCREEN_HEIGHT, SCREEN_WIDTH, useMatron } from "../matron";
 import { MonacoEditor } from "../monaco";
@@ -8,13 +8,17 @@ import { MonacoEditor } from "../monaco";
 import { NornsEncoder } from "./NornsEncoder";
 import { NornsKey } from "./NornsKey";
 import { findSteppable } from "./findSteppable";
-import { initialCode } from "./initialCode";
 import { Column, Row, Spacer, MatronCanvas } from "./ScratchPad.styles";
+import { useCode } from "./useCode";
+import { MonacoEditor as MonacoEditorInternal } from "../monaco/useMonaco";
+import { initialCode } from "./initialCode";
 
 export function ScratchPad(): JSX.Element {
   const matron = useMatron();
-  const [code, setCode] = useState(initialCode);
+  const [code, setCode] = useCode(initialCode);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const editorRef = useRef<MonacoEditorInternal>(null);
+  const shouldInitRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -148,12 +152,25 @@ export function ScratchPad(): JSX.Element {
     }
   };
 
-  const execute = (value: string, shouldInit?: boolean) => {
-    matron?.execute(value, shouldInit);
+  const execute = (value: string) => {
+    matron?.execute(value, shouldInitRef.current);
+    shouldInitRef.current = false;
   };
 
   const init = () => {
     matron?.init();
+  };
+
+  const confirmResetEditor = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to reset the editor? All changes will be lost."
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    shouldInitRef.current = true;
+    editorRef.current?.setValue(initialCode);
   };
 
   const updateCode = (value: string) => {
@@ -162,7 +179,7 @@ export function ScratchPad(): JSX.Element {
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => execute(code, true), []);
+  useEffect(() => execute(code), []);
 
   const keyHandler = (n: number) => (isDown: boolean) => {
     matron?.key(n, isDown);
@@ -195,12 +212,14 @@ export function ScratchPad(): JSX.Element {
         <NornsEncoder onChange={encHandler(3)} />
       </Row>
       <MonacoEditor
+        ref={editorRef}
         initialValue={code}
         onCreate={handleCreate}
         onContentChange={updateCode}
         onPositionChange={handlePositionChange}
       />
-      <button onClick={init}>Init</button>
+      <button onClick={init}>Init Script</button>
+      <button onClick={confirmResetEditor}>Reset Editor</button>
     </Column>
   );
 }

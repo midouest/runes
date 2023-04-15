@@ -1,8 +1,8 @@
 import * as monaco from "monaco-editor";
-import { useEffect } from "react";
+import { Ref, forwardRef, useEffect, useImperativeHandle } from "react";
 import styled from "styled-components";
 
-import { useMonaco } from "./useMonaco";
+import { useMonaco, MonacoEditor as MonacoEditorInternal } from "./useMonaco";
 
 const Container = styled.div`
   width: 512px;
@@ -21,13 +21,18 @@ export interface MonacoEditorProps {
   ) => void;
 }
 
-export function MonacoEditor({
-  initialValue,
-  onCreate,
-  onContentChange,
-  onPositionChange,
-}: MonacoEditorProps): JSX.Element {
+function MonacoEditorWithRef(
+  {
+    initialValue,
+    onCreate,
+    onContentChange,
+    onPositionChange,
+  }: MonacoEditorProps,
+  ref: Ref<MonacoEditorInternal>
+): JSX.Element {
   const [editor, setEditorCallback] = useMonaco(initialValue);
+
+  useImperativeHandle(ref, () => editor, [editor]);
 
   useEffect(() => {
     if (editor === null) {
@@ -63,3 +68,5 @@ export function MonacoEditor({
 
   return <Container ref={setEditorCallback}></Container>;
 }
+
+export const MonacoEditor = forwardRef(MonacoEditorWithRef);
