@@ -17,6 +17,7 @@ export function useMonaco(
       value: initialValue,
       language: "lua",
       automaticLayout: true,
+      minimap: { enabled: false },
     });
     setEditor(editor);
     // eslint-disable-next-line react-hooks/exhaustive-deps

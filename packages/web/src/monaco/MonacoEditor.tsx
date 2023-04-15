@@ -6,7 +6,7 @@ import { useMonaco, MonacoEditor as MonacoEditorInternal } from "./useMonaco";
 
 const Container = styled.div`
   width: 512px;
-  height: 256px;
+  height: 338.5px;
 `;
 
 export type Editor = monaco.editor.IStandaloneCodeEditor;
