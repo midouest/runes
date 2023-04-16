@@ -12,7 +12,12 @@
     "configure": "yarn workspace @runes/matron configure",
     "build": "yarn workspace @runes/matron build",
     "clean": "yarn workspace @runes/matron clean",
-    "start": "yarn workspace @runes/web start"
+    "install-matron": "yarn workspace @runes/matron install",
+    "clean-build": "yarn clean && yarn configure && yarn build && yarn install-matron",
+    "start": "yarn workspace @runes/web start",
+    "submodule": "git submodule init && git submodule update",
+    "docker-build": "docker build -t runes:latest .",
+    "docker-run": "docker run -it --rm --name runes --mount type=bind,source=\"$(pwd)\",target=/runes -p 3000:3000 runes:latest"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3"
