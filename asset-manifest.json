@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/runes/static/css/main.abddc258.css",
-    "main.js": "/runes/static/js/main.f001322e.js",
+    "main.js": "/runes/static/js/main.9a435a43.js",
     "matron.worker.js": "/runes/static/js/matron.worker.9e2e2b9e.chunk.js",
     "static/js/6685.2417bef4.chunk.js": "/runes/static/js/6685.2417bef4.chunk.js",
     "static/js/966.4776dae4.chunk.js": "/runes/static/js/966.4776dae4.chunk.js",
@@ -92,7 +92,7 @@
     "static/media/codicon.ttf": "/runes/static/media/codicon.f1fd2824f6c602ce2f26.ttf",
     "index.html": "/runes/index.html",
     "main.abddc258.css.map": "/runes/static/css/main.abddc258.css.map",
-    "main.f001322e.js.map": "/runes/static/js/main.f001322e.js.map",
+    "main.9a435a43.js.map": "/runes/static/js/main.9a435a43.js.map",
     "matron.worker.9e2e2b9e.chunk.js.map": "/runes/static/js/matron.worker.9e2e2b9e.chunk.js.map",
     "6685.2417bef4.chunk.js.map": "/runes/static/js/6685.2417bef4.chunk.js.map",
     "966.4776dae4.chunk.js.map": "/runes/static/js/966.4776dae4.chunk.js.map",
@@ -180,6 +180,6 @@
   },
   "entrypoints": [
     "static/css/main.abddc258.css",
-    "static/js/main.f001322e.js"
+    "static/js/main.9a435a43.js"
   ]
 }
