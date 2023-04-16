@@ -234,8 +234,20 @@ set(EMSCRIPTEN_LINK_FLAGS
      --preload-file ${NORNS_DIR}/lua/core/norns.lua@/${HOME}/norns/lua/core/norns.lua \
      --preload-file ${NORNS_DIR}/lua/core/screen.lua@/${HOME}/norns/lua/core/screen.lua \
      --preload-file ${NORNS_DIR}/lua/core/startup.lua@/${HOME}/norns/lua/core/startup.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/elca.lua@/${HOME}/norns/lua/lib/elca.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/envgraph.lua@/${HOME}/norns/lua/lib/envgraph.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/er.lua@/${HOME}/norns/lua/lib/er.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/filtergraph.lua@/${HOME}/norns/lua/lib/filtergraph.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/filters.lua@/${HOME}/norns/lua/lib/filters.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/formatters.lua@/${HOME}/norns/lua/lib/formatters.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/graph.lua@/${HOME}/norns/lua/lib/graph.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/intonation.lua@/${HOME}/norns/lua/lib/intonation.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/musicutil.lua@/${HOME}/norns/lua/lib/musicutil.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/sequins.lua@/${HOME}/norns/lua/lib/sequins.lua \
      --preload-file ${NORNS_DIR}/lua/lib/tabutil.lua@/${HOME}/norns/lua/lib/tabutil.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/ui.lua@/${HOME}/norns/lua/lib/ui.lua \
      --preload-file ${NORNS_DIR}/lua/lib/util.lua@/${HOME}/norns/lua/lib/util.lua \
+     --preload-file ${NORNS_DIR}/lua/lib/voice.lua@/${HOME}/norns/lua/lib/voice.lua \
      --preload-file ${NORNS_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
 set_target_properties(matron PROPERTIES LINK_FLAGS ${EMSCRIPTEN_LINK_FLAGS})
 
