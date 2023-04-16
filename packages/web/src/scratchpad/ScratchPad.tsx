@@ -33,9 +33,6 @@ export function ScratchPad(): JSX.Element {
     }
 
     matron.setCanvas(canvas);
-
-    canvas.style.width = "512px";
-    canvas.style.height = "256px";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
