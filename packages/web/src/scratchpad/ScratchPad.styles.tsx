@@ -30,5 +30,7 @@ export const Spacer = styled.div<SpacerProps>`
 
 export const MatronCanvas = styled.canvas`
   background: black;
+  width: 512px;
+  height: 256px;
   image-rendering: pixelated;
 `;
