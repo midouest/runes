@@ -238,6 +238,10 @@ export function ScratchPad(): JSX.Element {
           ref={canvasRef}
           width={SCREEN_WIDTH}
           height={SCREEN_HEIGHT}
+          style={{
+            width: "512px",
+            height: "256px",
+          }}
         />
         <Row>
           <NornsKey keyId={2} onChange={keyHandler(2)} />
