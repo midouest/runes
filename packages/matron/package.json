@@ -6,7 +6,7 @@
   "scripts": {
     "configure": "emcmake cmake -Bbuild -H.",
     "build": "cmake --build build --target matron",
-    "install": "mkdir -p dist && cp build/matron.* dist",
+    "preinstall": "mkdir -p dist && cp build/matron.* dist",
     "clean": "rm -rf build"
   },
   "devDependencies": {
