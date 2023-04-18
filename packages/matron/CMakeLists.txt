@@ -108,6 +108,7 @@ ExternalProject_Add(
     SOURCE_DIR ${PIXMAN_SOURCE_DIR}
     INSTALL_DIR ${DIST_DIR}
     CONFIGURE_COMMAND ${PIXMAN_CONFIGURE_COMMAND}
+    PATCH_COMMAND patch ${PIXMAN_SOURCE_DIR}/pixman/pixman-bits-image.c ${CMAKE_CURRENT_SOURCE_DIR}/patch/pixman-bits-image.patch
     BUILD_COMMAND cd pixman && emmake make
     INSTALL_COMMAND cd pixman && emmake make install
     BUILD_BYPRODUCTS ${PIXMAN_STATIC_LIB}
