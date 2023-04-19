@@ -11,6 +11,7 @@
 
 # production
 /build
+/packages/*/dist
 /packages/*/build
 
 # misc

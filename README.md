@@ -8,8 +8,8 @@ Norns screen live-coding
 
 ## Development
 
-Tested on macOS 12.1 and Ubuntu 20.04.3 LTS. Windows is not supported, but
-Ubuntu running in WSL2 works.
+Tested on macOS 12.1+ and Ubuntu 20.04.3+. Windows is not supported, but Ubuntu
+running in WSL2 works.
 
 ### Requirements
 
@@ -19,31 +19,51 @@ Ubuntu running in WSL2 works.
 - Emscripten (3.1.1+)
 - pkg-config (0.29.2+)
 
+A Dockerfile is provided for quickly setting up a compatible development
+environment.
+
 ### Recommended Chrome Extensions
 
 - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 - [C/C++ DevTools Support \(Dwarf\)](https://chrome.google.com/webstore/detail/cc%20%20-devtools-support-dwa/pdcpmagijalfljmkmjngeonclgbbannb)
 
-### Setup
+### Setup (Docker)
 
-Install/checkout dependencies:
+Build the Docker image:
 
 ```bash
-$ git submodule init
-$ git submodule update
+$ yarn image
 ```
 
-Compile Matron to WebAssembly:
+Setup dependencies:
 
 ```bash
-$ yarn configure
-$ yarn build
+$ yarn docker-setup
 ```
 
 Start the development server:
 
 ```bash
-$ yarn install
+$ yarn docker-start
+```
+
+Start an interactive shell:
+
+```bash
+$ yarn docker
+```
+
+### Setup (Local)
+
+Setup dependencies:
+
+```bash
+$ yarn setup
+```
+
+Start the development server:
+
+```bash
 $ yarn start
 ```
 
