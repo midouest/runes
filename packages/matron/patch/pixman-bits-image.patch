@@ -1,0 +1,8 @@
+1054c1054
+< static const float
+---
+> static float
+1061c1061
+< static const float
+---
+> static float

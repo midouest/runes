@@ -4,9 +4,9 @@
   "main": "dist/matron.js",
   "license": "GPL-3.0",
   "scripts": {
-    "configure": "emcmake cmake -Bbuild -H.",
+    "configure": "emcmake cmake -DCMAKE_INSTALL_PREFIX=./ -Bbuild -H.",
     "build": "cmake --build build --target matron",
-    "install": "mkdir -p dist && cp build/matron.* dist",
+    "preinstall": "cmake --build build --target matron install",
     "clean": "rm -rf build"
   },
   "devDependencies": {

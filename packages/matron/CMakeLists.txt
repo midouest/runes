@@ -108,6 +108,7 @@ ExternalProject_Add(
     SOURCE_DIR ${PIXMAN_SOURCE_DIR}
     INSTALL_DIR ${DIST_DIR}
     CONFIGURE_COMMAND ${PIXMAN_CONFIGURE_COMMAND}
+    PATCH_COMMAND patch ${PIXMAN_SOURCE_DIR}/pixman/pixman-bits-image.c ${CMAKE_CURRENT_SOURCE_DIR}/patch/pixman-bits-image.patch
     BUILD_COMMAND cd pixman && emmake make
     INSTALL_COMMAND cd pixman && emmake make install
     BUILD_BYPRODUCTS ${PIXMAN_STATIC_LIB}
@@ -228,6 +229,7 @@ set(EMSCRIPTEN_LINK_FLAGS
      -s EXPORTED_RUNTIME_METHODS=cwrap \
      -s MODULARIZE \
      -s EXPORT_ES6=1 \
+     -s ENVIRONMENT=worker \
      --no-entry \
      --preload-file ${NORNS_DIR}/resources@/${HOME}/norns/resources \
      --preload-file ${NORNS_DIR}/lua/core/config.lua@/${HOME}/norns/lua/core/config.lua \
@@ -251,7 +253,9 @@ set(EMSCRIPTEN_LINK_FLAGS
      --preload-file ${NORNS_DIR}/matronrc.lua@/${HOME}/matronrc.lua")
 set_target_properties(matron PROPERTIES LINK_FLAGS ${EMSCRIPTEN_LINK_FLAGS})
 
-# MISC #########################################################################
-
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/matron.d.ts
-    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+install(FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/matron.d.ts
+    "$<TARGET_FILE_DIR:matron>/matron.data"
+    "$<TARGET_FILE_DIR:matron>/matron.js"
+    "$<TARGET_FILE_DIR:matron>/matron.wasm"
+    DESTINATION ./dist)
