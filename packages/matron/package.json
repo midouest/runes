@@ -6,7 +6,7 @@
   "scripts": {
     "configure": "emcmake cmake -DCMAKE_INSTALL_PREFIX=./ -Bbuild -H.",
     "build": "cmake --build build --target matron",
-    "preinstall": "cmake --build build --target matron install",
+    "build-install": "cmake --build build --target matron install",
     "clean": "rm -rf build/*"
   },
   "devDependencies": {

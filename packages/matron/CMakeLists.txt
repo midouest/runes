@@ -1,5 +1,5 @@
-project(matron-web)
 cmake_minimum_required(VERSION 3.16.3)
+project(matron-web)
 
 include(ExternalProject)
 
