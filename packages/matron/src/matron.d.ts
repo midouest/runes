@@ -1,3 +1,5 @@
+/// <reference types="emscripten" />
+
 export interface MatronEmscriptenModule extends EmscriptenModule {
   cwrap: typeof cwrap;
 }
