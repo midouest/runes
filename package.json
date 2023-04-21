@@ -20,7 +20,8 @@
     "image": "docker build -t runes:latest .",
     "docker": "docker run -it --rm --name runes --mount type=bind,source=\"$(pwd)\",target=/runes -v runes_node_modules:/runes/node_modules -v runes_matron_build:/runes/packages/matron/build -p 3000:3000 runes:latest",
     "docker-setup": "yarn docker yarn setup",
-    "docker-start": "yarn docker yarn start"
+    "docker-start": "yarn docker yarn start",
+    "test": "yarn workspace @runes/web test"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3"

@@ -3,6 +3,7 @@ import { enc } from "./enc";
 import { execute } from "./execute";
 import { init } from "./init";
 import { key } from "./key";
+import { loadMatronModule } from "./loadMatronModule";
 import { Matron } from "./Matron";
 import {
   Animate,
@@ -169,7 +170,8 @@ onmessage = (event: MessageEvent<MatronWorkerMessage>) => {
 };
 
 async function load(): Promise<void> {
-  matron = await Matron.load();
+  const wasm = await loadMatronModule();
+  matron = new Matron(wasm);
   postMessage(result({ type: LOADING_TYPE }));
 }
 
