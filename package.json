@@ -22,7 +22,7 @@
     "clean-build": "yarn clean && yarn configure && yarn build-install",
     "setup": "yarn submodule && yarn install && yarn clean-build",
     "start": "yarn workspace @runes/web start",
-    "image": "docker build -t runes:latest .",
+    "docker-image": "docker build -t midouest/runes:latest -t midouest/runes:v0.0.1 .",
     "docker": "docker run -it --rm --name runes --mount type=bind,source=\"$(pwd)\",target=/runes -v runes_node_modules:/runes/node_modules -v runes_matron_build:/runes/packages/matron/build -p 3000:3000 runes:latest",
     "docker-setup": "yarn docker yarn setup",
     "docker-start": "yarn docker yarn start",
