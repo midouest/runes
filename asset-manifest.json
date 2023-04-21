@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/runes/static/css/main.abddc258.css",
-    "main.js": "/runes/static/js/main.4813251d.js",
-    "matron.worker.js": "/runes/static/js/matron.worker.df4b9387.chunk.js",
+    "main.js": "/runes/static/js/main.9ad7c110.js",
+    "matron.worker.js": "/runes/static/js/matron.worker.59ad86a2.chunk.js",
     "static/js/6685.2417bef4.chunk.js": "/runes/static/js/6685.2417bef4.chunk.js",
     "static/js/966.4776dae4.chunk.js": "/runes/static/js/966.4776dae4.chunk.js",
     "static/js/2844.e2d66a48.chunk.js": "/runes/static/js/2844.e2d66a48.chunk.js",
@@ -86,14 +86,14 @@
     "static/js/2117.f2bab17b.chunk.js": "/runes/static/js/2117.f2bab17b.chunk.js",
     "static/js/5415.0193d53e.chunk.js": "/runes/static/js/5415.0193d53e.chunk.js",
     "static/js/5778.e1e14f3b.chunk.js": "/runes/static/js/5778.e1e14f3b.chunk.js",
+    "static/media/matron.wasm": "/runes/static/media/matron.485b552a55739efd1fde.wasm",
     "static/media/matron.data": "/runes/static/media/matron.293b0b4287a5d7ae83ea.data",
-    "static/media/matron.wasm": "/runes/static/media/matron.79b8bb6f88b37095f666.wasm",
     "editor.worker.js": "/runes/editor.worker.js",
     "static/media/codicon.ttf": "/runes/static/media/codicon.f1fd2824f6c602ce2f26.ttf",
     "index.html": "/runes/index.html",
     "main.abddc258.css.map": "/runes/static/css/main.abddc258.css.map",
-    "main.4813251d.js.map": "/runes/static/js/main.4813251d.js.map",
-    "matron.worker.df4b9387.chunk.js.map": "/runes/static/js/matron.worker.df4b9387.chunk.js.map",
+    "main.9ad7c110.js.map": "/runes/static/js/main.9ad7c110.js.map",
+    "matron.worker.59ad86a2.chunk.js.map": "/runes/static/js/matron.worker.59ad86a2.chunk.js.map",
     "6685.2417bef4.chunk.js.map": "/runes/static/js/6685.2417bef4.chunk.js.map",
     "966.4776dae4.chunk.js.map": "/runes/static/js/966.4776dae4.chunk.js.map",
     "2844.e2d66a48.chunk.js.map": "/runes/static/js/2844.e2d66a48.chunk.js.map",
@@ -180,6 +180,6 @@
   },
   "entrypoints": [
     "static/css/main.abddc258.css",
-    "static/js/main.4813251d.js"
+    "static/js/main.9ad7c110.js"
   ]
 }
