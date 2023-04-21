@@ -228,8 +228,7 @@ set(EMSCRIPTEN_LINK_FLAGS
      -s ALLOW_MEMORY_GROWTH=1 \
      -s EXPORTED_RUNTIME_METHODS=cwrap \
      -s MODULARIZE \
-     -s EXPORT_ES6=1 \
-     -s ENVIRONMENT=worker \
+     -s ENVIRONMENT=node,worker,web \
      --no-entry \
      --preload-file ${NORNS_DIR}/resources@/${HOME}/norns/resources \
      --preload-file ${NORNS_DIR}/lua/core/config.lua@/${HOME}/norns/lua/core/config.lua \

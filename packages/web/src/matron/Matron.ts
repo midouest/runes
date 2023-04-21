@@ -1,44 +1,15 @@
-import matronModuleFactory, { MatronEmscriptenModule } from "@runes/matron";
-import { noop } from "../util/function";
+import { MatronEmscriptenModule } from "@runes/matron";
 
-// @ts-ignore
-import matronDataUrl from "@runes/matron/dist/matron.data";
-// @ts-ignore
-import matronWasmUrl from "@runes/matron/dist/matron.wasm";
-
-import { createMatronBinding, MatronBinding } from "./MatronBinding";
+import { createMatronBinding } from "./MatronBinding";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 
 const SCREEN_BYTES_PER_PIXEL = 4;
 const SCREEN_BYTE_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT * SCREEN_BYTES_PER_PIXEL;
 
-function locateFile(url: string): string {
-  switch (url) {
-    case "matron.wasm":
-      return matronWasmUrl;
-
-    case "matron.data":
-      return matronDataUrl;
-
-    default:
-      return url;
-  }
-}
-
 export class Matron {
-  static async load(): Promise<Matron> {
-    const wasm = await matronModuleFactory({
-      printErr: noop,
-      locateFile,
-    });
-    const binding = createMatronBinding(wasm);
-    return new Matron(wasm, binding);
-  }
+  private _binding = createMatronBinding(this._wasm);
 
-  constructor(
-    private _wasm: MatronEmscriptenModule,
-    private _binding: MatronBinding
-  ) {
+  constructor(private _wasm: MatronEmscriptenModule) {
     this._init();
   }
 

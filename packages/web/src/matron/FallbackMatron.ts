@@ -3,12 +3,14 @@ import { enc } from "./enc";
 import { execute } from "./execute";
 import { init } from "./init";
 import { key } from "./key";
+import { loadMatronModule } from "./loadMatronModule";
 import { Matron } from "./Matron";
 import { MatronProcess } from "./MatronProcess";
 
 export class FallbackMatron implements MatronProcess {
   static async start(): Promise<FallbackMatron> {
-    const matron = await Matron.load();
+    const wasm = await loadMatronModule();
+    const matron = new Matron(wasm);
     return new FallbackMatron(matron);
   }
 
