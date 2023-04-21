@@ -49,16 +49,13 @@ screen.stroke()
   });
 
   it("draws filled circles", () => {
-    expect(() =>
-      harness.draw(`
+    const buffer = harness.draw(`
 screen.aa(0)
 screen.level(15)
 screen.circle(64, 32, 16)
 screen.fill()
-    `)
-    ).toThrowError(
-      /Aborted\(Assertion failed: _cairo_status_is_error \(status\)/
-    );
+    `);
+    expect(buffer).toMatchImageSnapshot();
   });
 
   it("draws outlined rectangles", () => {
