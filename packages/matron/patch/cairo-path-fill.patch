@@ -2,7 +2,7 @@
 > _cairo_filler_line_to_adapter (void *closure,
 > 		       const cairo_point_t *point,
 > 			   const cairo_slope_t *tangent) {
->     _cairo_filler_line_to(closure, point);
+>     return _cairo_filler_line_to(closure, point);
 > }
 > 
 > static cairo_status_t
