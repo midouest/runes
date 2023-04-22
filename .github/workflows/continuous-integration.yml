@@ -56,26 +56,8 @@ jobs:
       - name: Build web
         run: yarn build-web
 
-      - name: Upload build artifact
+      - name: Deploy
         if: github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: packages/web/build
-
-  deploy:
-    needs: [build, test]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+          folder: packages/web/build
