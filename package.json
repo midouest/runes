@@ -17,7 +17,6 @@
     "configure-relwithdebinfo": "yarn configure -DCMAKE_BUILD_TYPE=RELWITHDEBINFO",
     "build": "yarn workspace @runes/matron build",
     "build-web": "yarn workspace @runes/web build",
-    "build-parallel": "yarn build -j4",
     "build-install": "yarn workspace @runes/matron build-install",
     "clean": "yarn workspace @runes/matron clean",
     "clean-build": "yarn clean && yarn configure && yarn build-install",
