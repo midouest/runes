@@ -3,9 +3,11 @@ on: [push]
 jobs:
   ci:
     runs-on: ubuntu-latest
-    container:
-      image: midouest/runes:latest
+    container: midouest/runes:latest
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
+      - run: yarn configure-release
+      - run: yarn build-install
+      - run: CI=true yarn test
