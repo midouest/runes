@@ -12,9 +12,7 @@ jobs:
         with:
           submodules: true
       - run: |
-          echo "EMSDK: $EMSDK" && \
-          ls /emsdk && \
-          ls /emsdk/upstream/emscripten
-      - run: yarn configure-release
-      - run: yarn build-install
+          . /emsdk/emsdk_env.sh && \
+          yarn configure-release && \
+          yarn build-install
       - run: CI=true yarn test
