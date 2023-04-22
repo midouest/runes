@@ -8,11 +8,16 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           submodules: true
-      - run: |
+      - name: Build matron
+        run: |
           . /emsdk/emsdk_env.sh && \
           yarn configure-release && \
           yarn build-install
-      - run: CI=true yarn test
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run tests
+        run: CI=true yarn test
