@@ -1,5 +1,9 @@
 # runes
 
+[![continuous-integration](https://github.com/midouest/runes/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/midouest/runes/actions/workflows/continuous-integration.yml)
+
+[![pages-build-deployment](https://github.com/midouest/runes/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/midouest/runes/actions/workflows/pages/pages-build-deployment)
+
 Norns screen live-coding
 
 🚧 Work-in-progress 🚧
