@@ -32,7 +32,7 @@ environment.
 Build the Docker image:
 
 ```bash
-$ yarn image
+$ yarn docker-image
 ```
 
 Setup dependencies:
