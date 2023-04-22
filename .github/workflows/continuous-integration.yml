@@ -11,6 +11,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: true
+      - run: |
+          echo "EMSDK: $EMSDK" && \
+          ls /emsdk && \
+          ls /emsdk/upstream/emscripten
       - run: yarn configure-release
       - run: yarn build-install
       - run: CI=true yarn test
