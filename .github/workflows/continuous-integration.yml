@@ -1,23 +1,83 @@
 name: continuous-integration
-on: [push]
+on: push
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
-    container: midouest/runes:latest
-    defaults:
-      run:
-        shell: bash
+    container: emscripten/emsdk:latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           submodules: true
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+
       - name: Build matron
         run: |
           . /emsdk/emsdk_env.sh && \
           yarn configure-release && \
           yarn build-install
+
+      - name: Upload compiled matron
+        uses: actions/upload-artifact@v3
+        with:
+          name: matron-dist
+          path: packages/matron/dist
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+
+      - name: Download compiled matron
+        uses: actions/download-artifact@v3
+        with:
+          name: matron-dist
+          path: packages/matron/dist
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
       - name: Run tests
         run: CI=true yarn test
+
+      - name: Build web
+        run: yarn build-web
+
+      - name: Upload build artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: packages/web/build
+
+  deploy:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2

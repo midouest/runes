@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "predeploy": "yarn workspace @runes/web build",
+    "predeploy": "yarn build-web",
     "deploy": "gh-pages -d packages/web/build",
     "submodule": "git submodule init && git submodule update",
     "configure": "yarn workspace @runes/matron configure",
@@ -16,6 +16,7 @@
     "configure-release": "yarn configure -DCMAKE_BUILD_TYPE=RELEASE",
     "configure-relwithdebinfo": "yarn configure -DCMAKE_BUILD_TYPE=RELWITHDEBINFO",
     "build": "yarn workspace @runes/matron build",
+    "build-web": "yarn workspace @runes/web build",
     "build-parallel": "yarn build -j4",
     "build-install": "yarn workspace @runes/matron build-install",
     "clean": "yarn workspace @runes/matron clean",
