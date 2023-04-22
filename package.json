@@ -31,7 +31,7 @@
     "test": "yarn workspace @runes/web test"
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
-  },
-  "dependencies": {}
+    "gh-pages": "^3.2.3",
+    "lerna": "^6.6.1"
+  }
 }
